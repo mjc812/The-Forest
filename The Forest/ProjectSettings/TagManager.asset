@@ -3,7 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Crosshair
+  - UICanvas
+  - Item
+  - Cannibal
+  - InventoryPanelSlotsRowSlot
+  - SlotAmount
+  - InventoryDisplay
+  - StatusPage
+  - GenericMuzzleFlash
+  - WeaponHolder
+  - Head
+  - FPCamera
+  - Inventory
   layers:
   - Default
   - TransparentFX
@@ -11,7 +24,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - FP
   - 
   - 
   - 
