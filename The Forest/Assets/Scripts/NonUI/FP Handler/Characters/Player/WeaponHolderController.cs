@@ -34,6 +34,10 @@ public class WeaponHolderController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            UseItem();
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             DropItem();

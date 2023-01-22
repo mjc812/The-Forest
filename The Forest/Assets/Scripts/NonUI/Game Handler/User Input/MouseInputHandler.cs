@@ -27,10 +27,10 @@ public class MouseInputHandler : MonoBehaviour
     void HandleMouseInput()
     {
         if (!statusPage.isActive()) {
-            if (Input.GetMouseButton(0))
-            {
-                weaponHolder.UseItem();
-            }
+            // if (Input.GetMouseButton(0))
+            // {
+            //     weaponHolder.UseItem();
+            // }
             if (Input.GetMouseButtonDown(1))
             {
                 aimSystem.AimIn();
