@@ -31,14 +31,14 @@ public class MouseInputHandler : MonoBehaviour
             // {
             //     weaponHolder.UseItem();
             // }
-            if (Input.GetMouseButtonDown(1))
-            {
-                aimSystem.AimIn();
-            }
-            if (Input.GetMouseButtonUp(1))
-            {
-                aimSystem.AimOut();
-            }
+            // if (Input.GetMouseButtonDown(1))
+            // {
+            //     aimSystem.AimIn();
+            // }
+            // if (Input.GetMouseButtonUp(1))
+            // {
+            //     aimSystem.AimOut();
+            // }
             if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
             {
                 playerLook.Look(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));

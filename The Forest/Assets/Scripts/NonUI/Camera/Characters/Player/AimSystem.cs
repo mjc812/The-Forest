@@ -4,38 +4,67 @@ using UnityEngine;
 
 public class AimSystem : MonoBehaviour
 {
+    private PlayerMovement playerMovement;
+    private WeaponHolderController weaponHolder;
     private GameObject crosshair;
 
-    //private Animator animator;
+    Quaternion rest;
+    Quaternion tuck;
+    Quaternion rotationalSnapshot;
 
-    float positionX = 0.23f;
-    float positionY = -0.1f;
-    float positionZ = 0.1f;
+    Vector3 positionalTuck;
+    Vector3 positionalRest;
+    Vector3 positionalSnapshot;
 
-    float rotationX = 0f;
-    float rotationY = 2.9f;
-    float rotationZ = 0f;
-    
-    void Start()
-    {
+    float speed = 6f;
+    float timeCount = 0.0f;
+    bool tucking;
+
+    void Awake() {
         crosshair = GameObject.FindWithTag("Crosshair");
-        //animator = transform.GetComponent<Animator>();
+        weaponHolder = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderController>();
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+
+        positionalTuck = new Vector3(0.23f, -0.1f, 0.1f);
+        positionalRest = new Vector3(0f, 0f, 0f);
+        positionalSnapshot = new Vector3(0f, 0f, 0f);
+
+        tuck = Quaternion.Euler(0, 2.9f, 0);
+        rest = Quaternion.Euler(0, 0, 0);
+        rotationalSnapshot = rest = Quaternion.Euler(0, 0, 0);
+
+        tucking = false;
     }
 
-    public void AimIn()
+    void Update()
     {
-        transform.localPosition = new Vector3(positionX, positionY, positionZ);
-        transform.localRotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
-        //animator.Play("AimIn");
-        crosshair.SetActive(false);
+        if (weaponHolder.isHoldingItem()) {
+            if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(1)) {
+                positionalSnapshot = transform.localPosition;
+                rotationalSnapshot = transform.localRotation;
+                timeCount = 0.0f;
+            } else if (Input.GetMouseButton(1)) {
+                crosshair.SetActive(false);
+                if (!tucking) {
+                    positionalSnapshot = transform.localPosition;
+                    rotationalSnapshot = transform.localRotation;
+                    timeCount = 0.0f;
+                }
+                tucking = true;
+                transform.localPosition = Vector3.Slerp(positionalSnapshot, positionalTuck, timeCount * speed);
+                transform.localRotation = Quaternion.Slerp(rotationalSnapshot, tuck, timeCount * speed);
+                timeCount = timeCount + Time.deltaTime;
+            } else if (tucking) {
+                crosshair.SetActive(true);
+                tucking = false;
+                positionalSnapshot = transform.localPosition;
+                rotationalSnapshot = transform.localRotation;
+                timeCount = 0.0f; 
+            } else if ((transform.localPosition != positionalRest) || (transform.localRotation != rest)) {
+                transform.localPosition = Vector3.Slerp(positionalSnapshot, positionalRest, timeCount * speed);
+                transform.localRotation = Quaternion.Slerp(rotationalSnapshot, rest, timeCount * speed);
+                timeCount = timeCount + Time.deltaTime;
+            }
+        }
     }
-
-    public void AimOut()
-    {
-        //animator.Play("AimOut");
-        transform.localPosition = new Vector3(0, 0, 0);
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
-        crosshair.SetActive(true);
-    }
-
 }

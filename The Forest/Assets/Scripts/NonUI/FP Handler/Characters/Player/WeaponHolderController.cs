@@ -75,4 +75,9 @@ public class WeaponHolderController : MonoBehaviour
             //animator.SetTrigger("Fire" + randomAnimationNumber);
         }
     }
+
+    public bool isHoldingItem()
+    {
+        return (item != null);
+    }
 }
