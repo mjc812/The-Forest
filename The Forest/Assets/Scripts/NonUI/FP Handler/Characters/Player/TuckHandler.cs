@@ -26,7 +26,7 @@ public class TuckHandler : MonoBehaviour
         positionalSnapshot = new Vector3(0f, 0f, 0f);
 
         rest = Quaternion.Euler(0, 0, 0);
-        tuck = Quaternion.Euler(10, -25, 25);
+        tuck = Quaternion.Euler(10, -15, 15);
         rotationalSnapshot = rest = Quaternion.Euler(0, 0, 0);
 
         tucking = false;
