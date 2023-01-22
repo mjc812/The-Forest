@@ -1,7 +1,10 @@
 using UnityEngine;
+using CameraShake;
 
 public class Weapon : MonoBehaviour, Item
 {
+    public BounceShake.Params shakeParams;
+
     private WeaponHolderController weaponHolderController;
     private ParticleSystem flashParticleSystem;
     private AudioSource audioSource;
@@ -64,7 +67,12 @@ public class Weapon : MonoBehaviour, Item
             }
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
-            //flashParticleSystem.Play();
+            
+
+            Vector3 sourcePosition = transform.position;
+            CameraShaker.Shake(new BounceShake(shakeParams, sourcePosition));
+
+
             return true;
         } else
         {
