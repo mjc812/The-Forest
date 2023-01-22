@@ -16,6 +16,10 @@ public class SwingHandler : MonoBehaviour
 
     float sprintMultiplier;
 
+    float forwardWalkDivider = 1.5f;
+    float backwardWalkDivider = 1.5f;
+    float forwardSprintDivider = 0.85f;
+
     float headToMaxDuration = 0.25f;
     float headToMinDuration = 0.25f;
     float headToRestDuration = 0.15f;
@@ -26,8 +30,8 @@ public class SwingHandler : MonoBehaviour
     float percentageToComplete = 1.0f;
 
     void Awake() {
-        positionalRight = new Vector3(0.02f, 0.015f, 0.01f);
-        positionalLeft = new Vector3(-0.02f, 0.015f, 0.01f);
+        positionalRight = new Vector3(0.01f, 0.01f, 0.005f);
+        positionalLeft = new Vector3(-0.01f, 0.01f, 0.005f);
         positionalRest = new Vector3(0f, 0f, 0f);
         positionalSnapshot = transform.localPosition;
 
@@ -48,12 +52,12 @@ public class SwingHandler : MonoBehaviour
     }
 
     private void Swing() {
-         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.W)) {
             positionalSnapshot = transform.localPosition;
             rotationalSnapshot = transform.localRotation;
             timeCount = 0.0f;
         } else if (Input.GetKey(KeyCode.W)) {
-            timeCount = timeCount + Time.deltaTime;
+            updateTime();
             float percentageComplete;
             if (headToYMax) {
                 percentageComplete = timeCount / headToMaxDuration;
@@ -92,11 +96,23 @@ public class SwingHandler : MonoBehaviour
             }
         } else {
             if ((transform.localPosition != positionalRest)|| (transform.localRotation != rotationalRest)) {
-                timeCount = timeCount + Time.deltaTime;
+                updateTime();
                 float percentageComplete = timeCount / headToRestDuration;
                 transform.localPosition = Vector3.Slerp(positionalSnapshot, positionalRest, percentageComplete);
                 transform.localRotation = Quaternion.Slerp(rotationalSnapshot, rotationalRest, percentageComplete);
             }
+        }
+    }
+
+    private void updateTime() {
+        if (Input.GetKey(KeyCode.W)) {
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                timeCount = timeCount + (Time.deltaTime / forwardSprintDivider);
+            } else {
+                timeCount = timeCount + (Time.deltaTime / forwardWalkDivider);
+            }
+        } else {
+            timeCount = timeCount + Time.deltaTime;
         }
     }
 }

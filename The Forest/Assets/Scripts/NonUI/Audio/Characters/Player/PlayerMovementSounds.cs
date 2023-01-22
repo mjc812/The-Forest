@@ -16,8 +16,8 @@ public class PlayerMovementSounds : MonoBehaviour
     private float forwardStepTime = 0.7f;
     private float forwardStepTimeTotal = 0f;
 
-    private float forwardSprintStepAudioPitch = 1f;
-    private float forwardSprintStepTime = 0.35f;
+    private float forwardSprintStepAudioPitch = 0.8f;
+    private float forwardSprintStepTime = 0.33f;
     private float forwardSprintStepTimeTotal = 0f;
 
     private float backwardStepAudioPitch = 0.6f;
