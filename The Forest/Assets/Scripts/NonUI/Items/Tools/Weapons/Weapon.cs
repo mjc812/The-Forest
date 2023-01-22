@@ -4,16 +4,13 @@ using CameraShake;
 public class Weapon : MonoBehaviour, Item
 {
     public BounceShake.Params shakeParams;
+    public AudioClip fire;
 
     private WeaponHolderController weaponHolderController;
-    private ParticleSystem flashParticleSystem;
+    private Transform particleEffects;
+    private ParticleSystem muzzleFlash;
     private AudioSource audioSource;
     private BoxCollider boxCollider;
-
-    //eventually move to object pool. Do not want to reference prefabs in random places everywhere, should only be done through object pool handlers
-    //public GameObject spark;
-
-    public AudioClip fire;
 
     private float fireRate = 1f;
     private float nextTimeToFire;
@@ -36,9 +33,8 @@ public class Weapon : MonoBehaviour, Item
         nextTimeToFire = 0;
         boxCollider = transform.GetComponent<BoxCollider>();
         audioSource = transform.GetComponent<AudioSource>();
-        Transform muzzleFlash = gameObject.transform.Find("MuzzleFlash");
-        //Transform flare = muzzleFlash.Find("Flash");
-        //flashParticleSystem = flare.GetComponent<ParticleSystem>();
+        particleEffects = transform.Find("Particle Effects");
+        muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
     }
 
     public void PickUp()
@@ -65,6 +61,7 @@ public class Weapon : MonoBehaviour, Item
             {
                 RaycastTargetHit(hit);
             }
+            muzzleFlash.Play();
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
             

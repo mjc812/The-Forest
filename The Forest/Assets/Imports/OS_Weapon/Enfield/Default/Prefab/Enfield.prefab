@@ -381,7 +381,6 @@ GameObject:
   - component: {fileID: 1326949308}
   - component: {fileID: 7422121479591576547}
   - component: {fileID: 2534903513673577732}
-  - component: {fileID: 5973082374574780961}
   m_Layer: 0
   m_Name: Enfield
   m_TagString: Item
@@ -594,6 +593,7 @@ MonoBehaviour:
       falloffScale: 50
       falloffDegree: 1
       axesMultiplier: {x: 1, y: 1, z: 1}
+  muzzleFlash: {fileID: 8213536540485569515}
   fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
 --- !u!54 &1326949308
 Rigidbody:
@@ -720,33 +720,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5973082374574780961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866922139816864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 807172a5d0c4942479fffdd84527d810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shakeParams:
-    positionStrength: 0
-    rotationStrength: 3
-    axesMultiplier:
-      position: {x: 0.1, y: 0.1, z: 0}
-      eulerAngles: {x: 1, y: 1, z: 1}
-    freq: 50
-    numBounces: 3
-    randomness: 0.5
-    attenuation:
-      clippingDistance: 10
-      falloffScale: 50
-      falloffDegree: 1
-      axesMultiplier: {x: 1, y: 1, z: 1}
-  fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
 --- !u!1 &1407102123514122124
 GameObject:
   m_ObjectHideFlags: 0
