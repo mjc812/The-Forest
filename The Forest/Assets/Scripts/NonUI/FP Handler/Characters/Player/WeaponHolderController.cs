@@ -14,13 +14,13 @@ public class WeaponHolderController : MonoBehaviour
     private Transform swingHandler;
 
     //make private later
-    public float positionX = 0.2f;
-    public float positionY = -0.35f;
-    public float positionZ = 0.9f;
+    float positionX = 0.25f;
+    float positionY = -0.4f;
+    float positionZ = 0.5f;
 
-    public float rotationX = 0f;
-    public float rotationY = -182f;
-    public float rotationZ = 0f;
+    float rotationX = 0f;
+    float rotationY = 3f;
+    float rotationZ = 0f;
 
     void Start()
     {
