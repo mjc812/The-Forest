@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour, Item
 
     public AudioClip fire;
 
-    private float fireRate = 13f;
+    private float fireRate = 1f;
     private float nextTimeToFire;
 
     public int ID {
