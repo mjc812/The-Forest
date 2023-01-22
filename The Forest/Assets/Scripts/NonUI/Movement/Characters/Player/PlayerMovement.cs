@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController characterController;
-    private AudioSource audioSource;
     private StatusPage statusPage;
 
     private Vector3 direction;
@@ -18,13 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private float jumpForce = 6f;
     private float verticalForce = 0;
 
-    private float stepTime = 0.8f;
-    private float stepTimeTotal = 0f;
-
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        audioSource = transform.GetComponent<AudioSource>();
         statusPage = GameObject.FindWithTag("StatusPage").GetComponent<StatusPage>();
     }
 
