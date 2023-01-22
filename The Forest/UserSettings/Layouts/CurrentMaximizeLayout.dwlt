@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 10252
+  controlID: 1012
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 10253
+  controlID: 1013
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 10254
+  controlID: 1014
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -226,7 +226,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 3af0ffffe8f9ffff38fbffff985b0000
+      m_ExpandedIDs: 0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -535,9 +535,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 419.8376, y: 10.359564, z: 411.51236}
+    m_Target: {x: 445.40533, y: 17.186472, z: 403.35934}
     speed: 2
-    m_Value: {x: 419.8376, y: 10.359564, z: 411.51236}
+    m_Value: {x: 445.40533, y: 17.186472, z: 403.35934}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -584,9 +584,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.09474491, y: 0.402808, z: -0.041967396, w: -0.90940094}
+    m_Target: {x: -0.16148917, y: 0.5148449, z: -0.09944893, w: -0.83604175}
     speed: 2
-    m_Value: {x: -0.09474481, y: 0.40280756, z: -0.04196735, w: -0.9094}
+    m_Value: {x: -0.16148919, y: 0.51484495, z: -0.099448934, w: -0.8360418}
   m_Size:
     m_Target: 1.027136
     speed: 2
@@ -683,23 +683,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/ALP8310_Assets/_Rustic_Environment_/Assets/Oak_Forest_Pack_/OF_GroundTextures
+    - Assets/Imports/Conifers/Render Pipeline Support/Built-in RP/CTI Runtime Components
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/ALP8310_Assets/_Rustic_Environment_/Assets/Oak_Forest_Pack_/OF_GroundTextures
+  - Assets/Imports/Conifers/Render Pipeline Support/Built-in RP/CTI Runtime Components
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/michaelchung/Documents/Unity/Projects/The-Forest/The
     Forest
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7e570100
-    m_LastClickedID: 87934
-    m_ExpandedIDs: 00000000685b00006a5b0000dae900002e570100365701003c5701003e57010000ca9a3b
+    scrollPos: {x: 0, y: 30.5}
+    m_SelectedIDs: ae700000
+    m_LastClickedID: 28846
+    m_ExpandedIDs: 00000000a8640000aa640000ac640000ae640000b0640000b2640000b6650000a8700000aa700000ac700000ae700000b2700000d4700000da70000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -727,7 +727,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000685b00006a5b0000dae9000000ca9a3b
+    m_ExpandedIDs: 00000000a8640000aa640000ac640000ae640000b0640000b2640000b6650000a8700000aa700000ac700000ae700000b2700000d4700000da70000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -830,8 +830,8 @@ MonoBehaviour:
     y: 0
     width: 340.5
     height: 850
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
