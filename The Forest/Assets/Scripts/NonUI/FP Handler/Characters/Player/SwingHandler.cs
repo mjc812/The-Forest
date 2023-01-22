@@ -17,8 +17,9 @@ public class SwingHandler : MonoBehaviour
     float sprintMultiplier;
 
     float forwardWalkDivider = 1.5f;
-    float backwardWalkDivider = 1.5f;
     float forwardSprintDivider = 0.85f;
+    float backwardWalkDivider = 3f;
+    float horizontalWalkDivider = 1.2f;
 
     float headToMaxDuration = 0.25f;
     float headToMinDuration = 0.25f;
@@ -52,11 +53,12 @@ public class SwingHandler : MonoBehaviour
     }
 
     private void Swing() {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyUp(KeyCode.A)
+         || Input.GetKeyDown(KeyCode.D) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.S)) {
             positionalSnapshot = transform.localPosition;
             rotationalSnapshot = transform.localRotation;
             timeCount = 0.0f;
-        } else if (Input.GetKey(KeyCode.W)) {
+        } else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) ||Input.GetKey(KeyCode.D)) {
             updateTime();
             float percentageComplete;
             if (headToYMax) {
@@ -111,6 +113,10 @@ public class SwingHandler : MonoBehaviour
             } else {
                 timeCount = timeCount + (Time.deltaTime / forwardWalkDivider);
             }
+        } else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
+            timeCount = timeCount + (Time.deltaTime / horizontalWalkDivider);
+        } else if (Input.GetKey(KeyCode.S)) {
+            timeCount = timeCount + (Time.deltaTime / backwardWalkDivider);
         } else {
             timeCount = timeCount + Time.deltaTime;
         }
