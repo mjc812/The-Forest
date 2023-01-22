@@ -5,21 +5,26 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController characterController;
+    private AudioSource audioSource;
     private StatusPage statusPage;
 
     private Vector3 direction;
 
-    private float positiveYSpeed = 5f;
-    private float sprintPositiveYSpeed = 8f;
-    private float negativeYSpeed = 3f;
-    private float XSpeed = 4f;
+    private float positiveYSpeed = 3f;
+    private float sprintPositiveYSpeed = 7f;
+    private float negativeYSpeed = 1f;
+    private float XSpeed = 2f;
     private float gravity = 20f;
     private float jumpForce = 6f;
     private float verticalForce = 0;
 
+    private float stepTime = 0.8f;
+    private float stepTimeTotal = 0f;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        audioSource = transform.GetComponent<AudioSource>();
         statusPage = GameObject.FindWithTag("StatusPage").GetComponent<StatusPage>();
     }
 
@@ -61,16 +66,20 @@ public class PlayerMovement : MonoBehaviour
     }
     float ZForce()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float zForce = 0f;
-        if (Input.GetAxis("Vertical") < 0) {
-            zForce = Input.GetAxis("Vertical") * negativeYSpeed;
-        } else if (Input.GetKey(KeyCode.LeftShift)) {
-            zForce = Input.GetAxis("Vertical") * sprintPositiveYSpeed;
+        if (Input.GetAxis("Vertical") != 0) {
+            float vertical = Input.GetAxis("Vertical");
+            float zForce = 0f;
+            if (Input.GetAxis("Vertical") < 0) {
+                zForce = Input.GetAxis("Vertical") * negativeYSpeed;
+            } else if (Input.GetKey(KeyCode.LeftShift)) {
+                zForce = Input.GetAxis("Vertical") * sprintPositiveYSpeed;
+            } else {
+                zForce = Input.GetAxis("Vertical") * positiveYSpeed;
+            }
+            return zForce;
         } else {
-            zForce = Input.GetAxis("Vertical") * positiveYSpeed;
+            return 0f;
         }
-        return zForce;
     }
 
     public bool isPlayerSprinting() {

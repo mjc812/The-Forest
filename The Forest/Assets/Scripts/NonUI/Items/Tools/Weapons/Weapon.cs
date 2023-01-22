@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour, Item
 
     public AudioClip fire;
 
-    private float fireRate = 13f;
+    private float fireRate = 1f;
     private float nextTimeToFire;
 
     public int ID {
@@ -34,8 +34,8 @@ public class Weapon : MonoBehaviour, Item
         boxCollider = transform.GetComponent<BoxCollider>();
         audioSource = transform.GetComponent<AudioSource>();
         Transform muzzleFlash = gameObject.transform.Find("MuzzleFlash");
-        Transform flare = muzzleFlash.Find("Flash");
-        flashParticleSystem = flare.GetComponent<ParticleSystem>();
+        //Transform flare = muzzleFlash.Find("Flash");
+        //flashParticleSystem = flare.GetComponent<ParticleSystem>();
     }
 
     public void PickUp()
@@ -43,18 +43,20 @@ public class Weapon : MonoBehaviour, Item
         boxCollider.enabled = false;
         weaponHolderController = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderController>();
         weaponHolderController.HoldItem(this);
+        gameObject.layer = LayerMask.NameToLayer("FP");
         SetChildrenWithTag(transform, "FP");
     }
 
     public void Drop()
     {
         boxCollider.enabled = true;
+        gameObject.layer = LayerMask.NameToLayer("Default");
         SetChildrenWithTag(transform, "Default");
     }
 
     public bool Use()
     {
-        if (Time.time > nextTimeToFire)
+        if ((Time.time > nextTimeToFire) && Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 80f))
             {
@@ -62,7 +64,7 @@ public class Weapon : MonoBehaviour, Item
             }
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
-            flashParticleSystem.Play();
+            //flashParticleSystem.Play();
             return true;
         } else
         {
