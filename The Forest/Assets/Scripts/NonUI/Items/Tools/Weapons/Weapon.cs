@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour, Item
 
     public bool Use()
     {
-        if (Time.time > nextTimeToFire)
+        if ((Time.time > nextTimeToFire) && Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 80f))
             {
