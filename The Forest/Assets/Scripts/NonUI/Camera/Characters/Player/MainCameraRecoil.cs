@@ -25,7 +25,6 @@ public class MainCameraRecoil : MonoBehaviour
             addRecoil();
             movingToTarget = true;
         } else if (movingToTarget && (currentRotation != targetRotation)) {
-            Debug.Log(targetRotation);
             timeElapsedSinceRecoil = timeElapsedSinceRecoil + Time.deltaTime;
             currentRotation = Vector3.Slerp(currentRotation, targetRotation, timeElapsedSinceRecoil / recoilSpeed);
             transform.localRotation = Quaternion.Euler(currentRotation);
@@ -34,7 +33,6 @@ public class MainCameraRecoil : MonoBehaviour
             currentRotation = Vector3.Slerp(currentRotation, targetRotation, timeElapsedSinceRecoilEnd / returnSpeed);
             transform.localRotation = Quaternion.Euler(currentRotation);
         } else {
-            Debug.Log("reset");
             targetRotation = new Vector3(0f, 0f, 0f);
             movingToTarget = false;
             timeElapsedSinceRecoil = 0f;
