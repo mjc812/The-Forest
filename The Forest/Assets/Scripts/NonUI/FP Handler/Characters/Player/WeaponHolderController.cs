@@ -6,8 +6,8 @@ using UnityEngine;
 public class WeaponHolderController : MonoBehaviour
 {
     private Weapon item = null;
-    //private Animator animator;
-    private Recoil mainCameraRecoil;
+    private MainCameraRecoil mainCameraRecoil;
+    private WeaponHolderRecoil weaponHolderRecoil;
     private Transform swayHandler;
     private Transform tuckHandler;
     private Transform twistHandler;
@@ -28,8 +28,8 @@ public class WeaponHolderController : MonoBehaviour
         tuckHandler = swayHandler.gameObject.transform.GetChild(0);
         twistHandler = tuckHandler.gameObject.transform.GetChild(0);
         swingHandler = twistHandler.gameObject.transform.GetChild(0);
-        mainCameraRecoil = GameObject.FindWithTag("MainCamera").GetComponent<Recoil>();
-        //animator = transform.GetComponent<Animator>();
+        mainCameraRecoil = GameObject.FindWithTag("MainCamera").GetComponent<MainCameraRecoil>();
+        weaponHolderRecoil = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderRecoil>();
     }
 
     void Update()
@@ -52,6 +52,8 @@ public class WeaponHolderController : MonoBehaviour
             item.gameObject.GetComponent<Rigidbody>().isKinematic = false;
             item.transform.parent = null;
             item = null;
+            mainCameraRecoil.setWeaponHeld(false);
+            weaponHolderRecoil.setWeaponHeld(false);
         }
     }
 
@@ -64,15 +66,15 @@ public class WeaponHolderController : MonoBehaviour
         itemTransform.localPosition = new Vector3(positionX, positionY, positionZ);
         itemTransform.localRotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
         itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        mainCameraRecoil.setWeaponHeld(true);
+        weaponHolderRecoil.setWeaponHeld(true);
     }
 
     public void UseItem()
     {
         if (item && item.Use())
         {
-            mainCameraRecoil.RecoilEffect();
             int randomAnimationNumber = UnityEngine.Random.Range(0, 3);
-            //animator.SetTrigger("Fire" + randomAnimationNumber);
         }
     }
 
