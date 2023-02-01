@@ -14,12 +14,13 @@ public class WeaponHolderRecoil : MonoBehaviour
     public float recoilSpeed = 75f;
     public float returnSpeed = 20f;
 
-    private bool weaponHeld = false;
+    private Weapon weaponHeld;
     private float timeElapsedSinceRecoil = 0f;
 
     void Update()
     {
-        if (weaponHeld && Input.GetMouseButtonDown(0)) {
+        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
+            Debug.Log("adding recoil");
             addRecoil();
         }
 
@@ -42,7 +43,7 @@ public class WeaponHolderRecoil : MonoBehaviour
         targetPosition += new Vector3(x, y, z);
     }
 
-    public void setWeaponHeld(bool set) {
-        weaponHeld = set;
+    public void setWeaponHeld(Weapon weapon) {
+        weaponHeld = weapon;
     } 
 }

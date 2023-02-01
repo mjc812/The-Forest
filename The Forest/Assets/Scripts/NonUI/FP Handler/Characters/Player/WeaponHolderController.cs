@@ -53,7 +53,7 @@ public class WeaponHolderController : MonoBehaviour
             item.transform.parent = null;
             item = null;
             mainCameraRecoil.setWeaponHeld(false);
-            weaponHolderRecoil.setWeaponHeld(false);
+            weaponHolderRecoil.setWeaponHeld(null);
         }
     }
 
@@ -67,7 +67,7 @@ public class WeaponHolderController : MonoBehaviour
         itemTransform.localRotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
         itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         mainCameraRecoil.setWeaponHeld(true);
-        weaponHolderRecoil.setWeaponHeld(true);
+        weaponHolderRecoil.setWeaponHeld(item);
     }
 
     public void UseItem()

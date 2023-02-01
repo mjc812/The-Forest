@@ -50,4 +50,8 @@ public abstract class Weapon : MonoBehaviour, Item
             SetChildrenWithTag(child, tag);
         }
     }
+
+    public bool IsReadyForUse() {
+        return Time.time > nextTimeToFire;
+    }
 }

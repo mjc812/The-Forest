@@ -25,7 +25,7 @@ public class Firearm : Weapon
 
     void Start()
     {
-        fireRate = 2f;
+        fireRate = 0.25f;
         nextTimeToFire = 0;
         boxCollider = transform.GetComponent<BoxCollider>();
         audioSource = transform.GetComponent<AudioSource>();
@@ -35,7 +35,7 @@ public class Firearm : Weapon
 
     public override bool Use()
     {
-        if ((Time.time > nextTimeToFire) && Input.GetMouseButtonDown(0))
+        if ((IsReadyForUse()) && Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 80f))
             {
