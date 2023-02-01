@@ -10,7 +10,7 @@ public abstract class SingleFire : Firearm
         nextTimeToFire = 0;
         boxCollider = transform.GetComponent<BoxCollider>();
         audioSource = transform.GetComponent<AudioSource>();
-        particleEffects = transform.Find("Particle Effects");
-        muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
+        // particleEffects = transform.Find("Particle Effects");
+        // muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
     }
 }
