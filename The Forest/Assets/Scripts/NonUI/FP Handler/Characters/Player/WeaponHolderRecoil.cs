@@ -35,8 +35,9 @@ public class WeaponHolderRecoil : MonoBehaviour
             currentPosition = Vector3.Slerp(currentPosition, targetPosition, Time.deltaTime * recoilSpeed);
             transform.localPosition = currentPosition;
         } else {
-            Debug.Log("frozen ");
+            Debug.Log("frozen " + transform.localPosition + " " + targetPosition);
             timeElapsedSinceRecoil = 0f;
+            targetPosition = Vector3.zero;
         }
     }
 
