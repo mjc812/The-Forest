@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CameraShake;
 
-public class Firearm : Weapon
+public abstract class Firearm : Weapon
 {
     public AudioClip fire;
     public BounceShake.Params shakeParams;
@@ -21,16 +21,6 @@ public class Firearm : Weapon
     public override Sprite Sprite
     {
         get => null;
-    }
-
-    void Start()
-    {
-        fireRate = 3f;
-        nextTimeToFire = 0;
-        boxCollider = transform.GetComponent<BoxCollider>();
-        audioSource = transform.GetComponent<AudioSource>();
-        particleEffects = transform.Find("Particle Effects");
-        muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
     }
 
     public override bool Use()

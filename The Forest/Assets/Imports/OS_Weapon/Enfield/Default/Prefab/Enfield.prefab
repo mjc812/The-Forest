@@ -590,7 +590,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1866922139816864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44ffee0c490e437eafdf4ec26e97ac2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a9722242ff7d4118835cfb7fd775ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
