@@ -8,6 +8,8 @@ public abstract class Weapon : MonoBehaviour, Item
     public abstract Sprite Sprite { get; }
     public abstract Vector3 weaponHolderPosition { get; }
     public abstract Vector3 weaponHolderRotation { get; }
+    public abstract Vector3 fpCameraAimPosition { get; }
+    public abstract Vector3 fpCameraAimRotation { get; }
 
     public abstract bool Use();
 

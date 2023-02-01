@@ -69,8 +69,8 @@ public class WeaponHolderController : MonoBehaviour
         }
     }
 
-    public bool isHoldingItem()
+    public Weapon getWeapon()
     {
-        return (item != null);
+        return item;
     }
 }

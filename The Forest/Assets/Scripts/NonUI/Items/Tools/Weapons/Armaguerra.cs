@@ -28,4 +28,14 @@ public class Armaguerra : SingleFire
     {
         get => new Vector3(0f, -85f, 0f);
     }
+
+    public override Vector3 fpCameraAimPosition
+    {
+        get => new Vector3(0.23f, -0.1f, 0.1f);
+    }
+
+    public override Vector3 fpCameraAimRotation
+    {
+        get => new Vector3(0f, 2.9f, 0f);
+    }
 }

@@ -7,6 +7,7 @@ public class AimSystem : MonoBehaviour
     private PlayerMovement playerMovement;
     private WeaponHolderController weaponHolder;
     private GameObject crosshair;
+    private Weapon weapon;
 
     Quaternion rest;
     Quaternion tuck;
@@ -38,7 +39,8 @@ public class AimSystem : MonoBehaviour
 
     void Update()
     {
-        if (weaponHolder.isHoldingItem()) {
+        if (weaponHolder.getWeapon() != null) {
+            Weapon weapon = weaponHolder.getWeapon();
             if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(1)) {
                 positionalSnapshot = transform.localPosition;
                 rotationalSnapshot = transform.localRotation;
@@ -51,8 +53,8 @@ public class AimSystem : MonoBehaviour
                     timeCount = 0.0f;
                 }
                 tucking = true;
-                transform.localPosition = Vector3.Slerp(positionalSnapshot, positionalTuck, timeCount * speed);
-                transform.localRotation = Quaternion.Slerp(rotationalSnapshot, tuck, timeCount * speed);
+                transform.localPosition = Vector3.Slerp(positionalSnapshot, weapon.fpCameraAimPosition, timeCount * speed);
+                transform.localRotation = Quaternion.Slerp(rotationalSnapshot, Quaternion.Euler(weapon.fpCameraAimRotation), timeCount * speed);
                 timeCount = timeCount + Time.deltaTime;
             } else if (tucking) {
                 crosshair.SetActive(true);
