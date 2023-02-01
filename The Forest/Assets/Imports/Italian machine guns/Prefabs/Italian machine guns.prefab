@@ -175,11 +175,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 466178}
-  - component: {fileID: 9541160}
   - component: {fileID: 425517963}
   - component: {fileID: 425517962}
   - component: {fileID: 425517964}
-  - component: {fileID: 425517965}
+  - component: {fileID: 6879536182092661829}
   m_Layer: 0
   m_Name: Italian machine guns
   m_TagString: Item
@@ -206,26 +205,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &9541160
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186316}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: afd7372cbc79bbf409f51002ff1d0caa, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &425517963
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -351,7 +330,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &425517965
+--- !u!114 &6879536182092661829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,10 +339,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 186316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd0b4978cd434af697f71d9836392b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dc910cf890fb4015b16cf1dfbe0441b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: {fileID: 0}
+  fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
   shakeParams:
     positionStrength: 0.05
     rotationStrength: 0.1

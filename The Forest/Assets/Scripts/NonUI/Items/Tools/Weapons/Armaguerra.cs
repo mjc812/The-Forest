@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enfield : SingleFire
+public class Armaguerra : SingleFire
 {
     public override int ID
     {
@@ -11,7 +11,7 @@ public class Enfield : SingleFire
 
     public override string Description
     {
-        get => "Enfield";
+        get => "Armaguerra";
     }
 
     public override Sprite Sprite
@@ -21,11 +21,11 @@ public class Enfield : SingleFire
 
     public override Vector3 weaponHolderPosition
     {
-        get => new Vector3(0.25f, -0.4f, 0.5f);
+        get => new Vector3(0.2f, -0.85f, 1.3f);
     }
 
     public override Vector3 weaponHolderRotation
     {
-        get => new Vector3(0f, 3f, 0f);
+        get => new Vector3(0f, -85f, 0f);
     }
 }

@@ -3,6 +3,14 @@ using CameraShake;
 
 public abstract class Weapon : MonoBehaviour, Item
 {
+    public abstract int ID { get; }
+    public abstract string Description { get; }
+    public abstract Sprite Sprite { get; }
+    public abstract Vector3 weaponHolderPosition { get; }
+    public abstract Vector3 weaponHolderRotation { get; }
+
+    public abstract bool Use();
+
     protected WeaponHolderController weaponHolderController;
     protected Transform particleEffects;
     protected ParticleSystem muzzleFlash;
@@ -11,12 +19,6 @@ public abstract class Weapon : MonoBehaviour, Item
 
     protected float fireRate;
     protected float nextTimeToFire;
-
-    public abstract int ID { get; }
-    public abstract string Description { get; }
-    public abstract Sprite Sprite { get; }
-
-    public abstract bool Use();
 
     public void PickUp()
     {
