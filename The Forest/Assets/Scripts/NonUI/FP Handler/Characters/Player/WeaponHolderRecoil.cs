@@ -9,21 +9,26 @@ public class WeaponHolderRecoil : MonoBehaviour
 
     // private float xRecoil = 0f;
     // private float yRecoil = 0f;
-    public float zRecoil = -0.3f;
+    public float zRecoil = -0.35f;
 
-    public float recoilSpeed = 75f;
-    public float returnSpeed = 20f;
+    public float recoilSpeed = 125f;
+    public float returnSpeed = 100f;
 
-    private bool weaponHeld = false;
+    private Weapon weaponHeld;
     private float timeElapsedSinceRecoil = 0f;
+
+    void Start() {
+        currentPosition = transform.localPosition;
+        targetPosition = currentPosition;
+    }
 
     void Update()
     {
-        if (weaponHeld && Input.GetMouseButtonDown(0)) {
+        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
             addRecoil();
         }
 
-        if (currentPosition != targetPosition) {
+        if (((transform.localPosition == targetPosition) && (targetPosition != Vector3.zero)) || (transform.localPosition != targetPosition)) {
             timeElapsedSinceRecoil += Time.deltaTime;
             targetPosition = Vector3.Lerp(targetPosition, Vector3.zero, timeElapsedSinceRecoil / returnSpeed);
             currentPosition = Vector3.Slerp(currentPosition, targetPosition, Time.deltaTime * recoilSpeed);
@@ -42,7 +47,7 @@ public class WeaponHolderRecoil : MonoBehaviour
         targetPosition += new Vector3(x, y, z);
     }
 
-    public void setWeaponHeld(bool set) {
-        weaponHeld = set;
+    public void setWeaponHeld(Weapon weapon) {
+        weaponHeld = weapon;
     } 
 }

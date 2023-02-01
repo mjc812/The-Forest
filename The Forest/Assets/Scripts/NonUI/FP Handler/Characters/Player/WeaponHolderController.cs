@@ -13,15 +13,6 @@ public class WeaponHolderController : MonoBehaviour
     private Transform twistHandler;
     private Transform swingHandler;
 
-    //make private later
-    float positionX = 0.25f;
-    float positionY = -0.4f;
-    float positionZ = 0.5f;
-
-    float rotationX = 0f;
-    float rotationY = 3f;
-    float rotationZ = 0f;
-
     void Start()
     {
         swayHandler = this.gameObject.transform.GetChild(0);
@@ -52,8 +43,8 @@ public class WeaponHolderController : MonoBehaviour
             item.gameObject.GetComponent<Rigidbody>().isKinematic = false;
             item.transform.parent = null;
             item = null;
-            mainCameraRecoil.setWeaponHeld(false);
-            weaponHolderRecoil.setWeaponHeld(false);
+            mainCameraRecoil.setWeaponHeld(null);
+            weaponHolderRecoil.setWeaponHeld(null);
         }
     }
 
@@ -63,11 +54,11 @@ public class WeaponHolderController : MonoBehaviour
         item = weapon;
         Transform itemTransform = weapon.transform;
         itemTransform.parent = swingHandler;
-        itemTransform.localPosition = new Vector3(positionX, positionY, positionZ);
-        itemTransform.localRotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
+        itemTransform.localPosition = item.weaponHolderPosition;
+        itemTransform.localRotation = Quaternion.Euler(item.weaponHolderRotation);
         itemTransform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        mainCameraRecoil.setWeaponHeld(true);
-        weaponHolderRecoil.setWeaponHeld(true);
+        mainCameraRecoil.setWeaponHeld(item);
+        weaponHolderRecoil.setWeaponHeld(item);
     }
 
     public void UseItem()
@@ -78,8 +69,8 @@ public class WeaponHolderController : MonoBehaviour
         }
     }
 
-    public bool isHoldingItem()
+    public Weapon getWeapon()
     {
-        return (item != null);
+        return item;
     }
 }

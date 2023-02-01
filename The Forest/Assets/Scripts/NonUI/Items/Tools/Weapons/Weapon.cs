@@ -1,41 +1,26 @@
 using UnityEngine;
 using CameraShake;
 
-public class Weapon : MonoBehaviour, Item
+public abstract class Weapon : MonoBehaviour, Item
 {
-    public BounceShake.Params shakeParams;
-    public AudioClip fire;
+    public abstract int ID { get; }
+    public abstract string Description { get; }
+    public abstract Sprite Sprite { get; }
+    public abstract Vector3 weaponHolderPosition { get; }
+    public abstract Vector3 weaponHolderRotation { get; }
+    public abstract Vector3 fpCameraAimPosition { get; }
+    public abstract Vector3 fpCameraAimRotation { get; }
 
-    private WeaponHolderController weaponHolderController;
-    private Transform particleEffects;
-    private ParticleSystem muzzleFlash;
-    private AudioSource audioSource;
-    private BoxCollider boxCollider;
+    public abstract bool Use();
 
-    private float fireRate = 1f;
-    private float nextTimeToFire;
+    protected WeaponHolderController weaponHolderController;
+    protected Transform particleEffects;
+    protected ParticleSystem muzzleFlash;
+    protected AudioSource audioSource;
+    protected BoxCollider boxCollider;
 
-    public int ID {
-        get => 0;
-    }
-
-    public string Description {
-        get => "Test Weapon";
-    }
-
-    public Sprite Sprite
-    {
-        get => null;
-    }
-
-    void Start()
-    {
-        nextTimeToFire = 0;
-        boxCollider = transform.GetComponent<BoxCollider>();
-        audioSource = transform.GetComponent<AudioSource>();
-        particleEffects = transform.Find("Particle Effects");
-        muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
-    }
+    protected float fireRate;
+    protected float nextTimeToFire;
 
     public void PickUp()
     {
@@ -53,38 +38,12 @@ public class Weapon : MonoBehaviour, Item
         SetChildrenWithTag(transform, "Default");
     }
 
-    public bool Use()
-    {
-        if ((Time.time > nextTimeToFire) && Input.GetMouseButtonDown(0))
-        {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 80f))
-            {
-                RaycastTargetHit(hit);
-            }
-            //muzzleFlash.Play();
-            audioSource.PlayOneShot(fire, 1f);
-            nextTimeToFire = Time.time + 1f / fireRate;
-            
-
-            Vector3 sourcePosition = transform.position;
-            CameraShaker.Shake(new BounceShake(shakeParams, sourcePosition));
-
-
-            return true;
-        } else
-        {
-            return false;
-        }
-    }
-
-    private void RaycastTargetHit(RaycastHit hit)
+    protected void RaycastTargetHit(RaycastHit hit)
     {
         if (hit.transform.tag == "Cannibal")
         {
             hit.transform.GetComponent<Health>().ApplyDamage(25f);
         }
-        //GameObject spark2 = Instantiate(spark, hit.point, Quaternion.LookRotation(hit.normal));
-        //Destroy(spark2, 0.5f);
     }
 
     private void SetChildrenWithTag(Transform parent, string tag)
@@ -94,5 +53,9 @@ public class Weapon : MonoBehaviour, Item
             child.gameObject.layer = LayerMask.NameToLayer(tag);
             SetChildrenWithTag(child, tag);
         }
+    }
+
+    public bool IsReadyForUse() {
+        return Time.time > nextTimeToFire;
     }
 }
