@@ -8,21 +8,6 @@ public abstract class Firearm : Weapon
     public AudioClip fire;
     public BounceShake.Params shakeParams;
 
-    public override int ID
-    {
-        get => 5;
-    }
-
-    public override string Description
-    {
-        get => "Enfield";
-    }
-
-    public override Sprite Sprite
-    {
-        get => null;
-    }
-
     public override bool Use()
     {
         if ((IsReadyForUse()) && Input.GetMouseButtonDown(0))
