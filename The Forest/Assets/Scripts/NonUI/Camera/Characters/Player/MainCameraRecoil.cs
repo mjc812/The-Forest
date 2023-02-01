@@ -7,24 +7,36 @@ public class MainCameraRecoil : MonoBehaviour
     private Vector3 targetRotation;
     private Vector3 currentRotation;
 
-    private float xRecoil = -15f;
+    private float xRecoil = -10f;
     private float yRecoil = 4f;
     private float zRecoil = 2f;
 
-    private float recoilSpeed = 25f;
-    private float returnSpeed = 1f;
+    private float recoilSpeed = 0.25f;
+    private float returnSpeed = 25f;
 
     private bool weaponHeld = false;
+    private bool movingToTarget = false;
+    private float timeElapsedSinceRecoil = 0f;
+    private float timeElapsedSinceRecoilEnd = 0f;
 
     void Update()
     {
         if (weaponHeld && Input.GetMouseButtonDown(0)) {
             addRecoil();
-        } 
-        if (currentRotation != targetRotation) {
-            targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * returnSpeed);
-            currentRotation = Vector3.Slerp(currentRotation, targetRotation, Time.deltaTime * recoilSpeed);
-            gameObject.transform.localRotation = Quaternion.Euler(currentRotation);
+            movingToTarget = true;
+        } else if (movingToTarget && (currentRotation != targetRotation)) {
+            timeElapsedSinceRecoil = timeElapsedSinceRecoil + Time.deltaTime;
+            currentRotation = Vector3.Slerp(currentRotation, targetRotation, timeElapsedSinceRecoil / recoilSpeed);
+            transform.localRotation = Quaternion.Euler(currentRotation);
+        } else if (!movingToTarget && (currentRotation != targetRotation)) {
+            timeElapsedSinceRecoilEnd = timeElapsedSinceRecoilEnd + Time.deltaTime;
+            currentRotation = Vector3.Slerp(currentRotation, targetRotation, timeElapsedSinceRecoilEnd / returnSpeed);
+            transform.localRotation = Quaternion.Euler(currentRotation);
+        } else {
+            targetRotation = new Vector3(0f, 0f, 0f);
+            movingToTarget = false;
+            timeElapsedSinceRecoil = 0f;
+            timeElapsedSinceRecoilEnd = 0f;
         }
     }
 
