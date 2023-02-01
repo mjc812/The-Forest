@@ -11,8 +11,8 @@ public class WeaponHolderRecoil : MonoBehaviour
     // private float yRecoil = 0f;
     public float zRecoil = -0.3f;
 
-    public float recoilSpeed = 75f;
-    public float returnSpeed = 20f;
+    public float recoilSpeed = 125f;
+    public float returnSpeed = 50f;
 
     private Weapon weaponHeld;
     private float timeElapsedSinceRecoil = 0f;
@@ -20,7 +20,6 @@ public class WeaponHolderRecoil : MonoBehaviour
     void Update()
     {
         if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
-            Debug.Log("adding recoil");
             addRecoil();
         }
 

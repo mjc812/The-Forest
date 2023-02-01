@@ -14,14 +14,14 @@ public class MainCameraRecoil : MonoBehaviour
     private float recoilSpeed = 0.25f;
     private float returnSpeed = 25f;
 
-    private bool weaponHeld = false;
+    private Weapon weaponHeld;
     private bool movingToTarget = false;
     private float timeElapsedSinceRecoil = 0f;
     private float timeElapsedSinceRecoilEnd = 0f;
 
     void Update()
     {
-        if (weaponHeld && Input.GetMouseButtonDown(0)) {
+        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
             addRecoil();
             movingToTarget = true;
         } else if (movingToTarget && (currentRotation != targetRotation)) {
@@ -49,7 +49,7 @@ public class MainCameraRecoil : MonoBehaviour
         targetRotation += new Vector3(x, y, z);
     }
 
-    public void setWeaponHeld(bool set) {
-        weaponHeld = set;
+    public void setWeaponHeld(Weapon weapon) {
+        weaponHeld = weapon;
     } 
 }

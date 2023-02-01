@@ -25,7 +25,7 @@ public class Firearm : Weapon
 
     void Start()
     {
-        fireRate = 0.25f;
+        fireRate = 3f;
         nextTimeToFire = 0;
         boxCollider = transform.GetComponent<BoxCollider>();
         audioSource = transform.GetComponent<AudioSource>();
