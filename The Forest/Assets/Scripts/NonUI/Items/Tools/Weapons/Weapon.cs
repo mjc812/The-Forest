@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour, Item
             {
                 RaycastTargetHit(hit);
             }
-            muzzleFlash.Play();
+            //muzzleFlash.Play();
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
             

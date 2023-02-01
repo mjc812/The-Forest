@@ -9,10 +9,10 @@ public class WeaponHolderRecoil : MonoBehaviour
 
     // private float xRecoil = 0f;
     // private float yRecoil = 0f;
-    private float zRecoil = -0.2f;
+    public float zRecoil = -0.3f;
 
-    private float recoilSpeed = 50f;
-    private float returnSpeed = 10f;
+    public float recoilSpeed = 75f;
+    public float returnSpeed = 20f;
 
     private bool weaponHeld = false;
     private float timeElapsedSinceRecoil = 0f;
