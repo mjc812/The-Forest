@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float positiveYSpeed = 3f;
     private float sprintPositiveYSpeed = 7f;
-    private float negativeYSpeed = 1f;
+    private float negativeYSpeed = 3f;
     private float XSpeed = 2f;
     private float gravity = 20f;
     private float jumpForce = 6f;
