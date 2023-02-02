@@ -18,6 +18,8 @@ public abstract class Firearm : Weapon
             }
             muzzleFlash.Play();
             muzzleSmoke.Play();
+            cartridgeEject.Play();
+            cartridgeSmoke.Play();
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
             
