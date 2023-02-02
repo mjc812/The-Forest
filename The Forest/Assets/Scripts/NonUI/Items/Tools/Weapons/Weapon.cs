@@ -16,6 +16,9 @@ public abstract class Weapon : MonoBehaviour, Item
     protected WeaponHolderController weaponHolderController;
     protected Transform particleEffects;
     protected ParticleSystem muzzleFlash;
+    protected ParticleSystem muzzleSmoke;
+    protected ParticleSystem cartridgeEject;
+    protected ParticleSystem cartridgeSmoke;
     protected AudioSource audioSource;
     protected BoxCollider boxCollider;
 
@@ -28,6 +31,11 @@ public abstract class Weapon : MonoBehaviour, Item
         weaponHolderController = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderController>();
         weaponHolderController.HoldItem(this);
         gameObject.layer = LayerMask.NameToLayer("FP");
+        particleEffects = transform.Find("Particle Effects");
+        muzzleFlash = particleEffects.Find("Muzzle Flash").GetComponent<ParticleSystem>();
+        muzzleSmoke = particleEffects.Find("Muzzle Smoke").GetComponent<ParticleSystem>();
+        cartridgeEject = particleEffects.Find("Cartridge Eject").GetComponent<ParticleSystem>();
+        cartridgeSmoke = particleEffects.Find("Cartridge Smoke").GetComponent<ParticleSystem>();
         SetChildrenWithTag(transform, "FP");
     }
 

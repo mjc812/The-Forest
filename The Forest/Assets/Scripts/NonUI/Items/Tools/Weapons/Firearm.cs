@@ -16,7 +16,10 @@ public abstract class Firearm : Weapon
             {
                 RaycastTargetHit(hit);
             }
-            //muzzleFlash.Play();
+            muzzleFlash.Play();
+            muzzleSmoke.Play();
+            cartridgeEject.Play();
+            cartridgeSmoke.Play();
             audioSource.PlayOneShot(fire, 1f);
             nextTimeToFire = Time.time + 1f / fireRate;
             
