@@ -21,6 +21,8 @@ public class Mutant : MonoBehaviour
     private float attackDistance = 4f;
     private float stopNavMeshAgentDistance = 1.8f;
     public float rotationSpeed = 10f;
+
+    private bool attacking;
    
     void Awake()
     {
@@ -38,6 +40,9 @@ public class Mutant : MonoBehaviour
 
     void Update()
     {
+        // Debug.Log("---------------------");
+        // Debug.Log(movingState);
+        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
         switch (movingState)
         {
             case State.CHASE:
@@ -68,31 +73,35 @@ public class Mutant : MonoBehaviour
         }
     }
 
-    private float attackTime = 1.5f;
-    private float attackTimeTotal = 0f;
+    private float attackTime = 2f;
+    private float attackTimeTotal = 1f;
 
     private void Attack()
     {
-//        if (CheckNavMeshAgentDistance()) {
-            navMeshAgent.isStopped = true;
-            navMeshAgent.velocity = Vector3.zero;
-//        }
+        navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
 
-        RotateTowardsPlayer();
-
-        attackTimeTotal += Time.deltaTime;
-        if (attackTimeTotal >= attackTime) {
-            attackTimeTotal = 0f;
-            Debug.Log("attacking");
-            animator.SetTrigger("Attack");
-        }
-
-        if (!CheckAttackDistance())
+        if (!CheckAttackDistance() && !attacking)
         {
-            attackTimeTotal = 0f;
+            attackTimeTotal = 1f;
             movingState = State.CHASE;
+        } else {
+            RotateTowardsPlayer();
+            attackTimeTotal += Time.deltaTime;
+            if (attackTimeTotal >= attackTime) {
+                attackTimeTotal = 0f;
+                attacking = true;
+                animator.SetTrigger("Attack");
+            }
         }
     }
+
+    public void PrintEvent(string s)
+    {
+        attacking = false;
+        Debug.Log("PrintEvent: " + s + " called at: " + Time.time);
+    }
+
 
     private bool CheckAttackDistance()
     {
