@@ -109,6 +109,12 @@ public class Mutant : MonoBehaviour
         gettingHit = false;
     }
 
+    public void HitRightFinish(string s)
+    {
+        attackTimeTotal = attackTime;
+        gettingHit = false;
+    }
+
     private bool CheckIfHit()
     {
         if (Input.GetMouseButtonDown(0))
@@ -116,7 +122,14 @@ public class Mutant : MonoBehaviour
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
             gettingHit = true;
-            animator.SetTrigger("Hit Left");
+
+            int randomAnimationNumber = UnityEngine.Random.Range(0, 2);
+            if (randomAnimationNumber == 0) {
+                animator.SetTrigger("Hit Left");
+            } else {
+                animator.SetTrigger("Hit Right");
+                Debug.Log("right");
+            }
             return true;
         } else {
             return false;
