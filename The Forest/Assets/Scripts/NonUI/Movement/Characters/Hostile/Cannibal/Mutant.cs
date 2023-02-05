@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Mutant : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Mutant : MonoBehaviour
         IDLE,
         WALK,
         CHASE,
-        ATTACK
+        ATTACK,
+        DEAD
     }
 
     private Animator animator;
@@ -45,19 +47,22 @@ public class Mutant : MonoBehaviour
 
     void Update()
     {
-        CheckIfHit();
-        if (!gettingHit) {
-            switch (movingState)
-            {
-                case State.CHASE:
+        if (movingState != State.DEAD) {
+            CheckIfHit();
+            CheckIfDead();
+            if (!gettingHit) {
+                switch (movingState)
                 {
-                    Chase();
-                    break;
-                }
-                case State.ATTACK:
-                {
-                    Attack();
-                    break;
+                    case State.CHASE:
+                    {
+                        Chase();
+                        break;
+                    }
+                    case State.ATTACK:
+                    {
+                        Attack();
+                        break;
+                    }
                 }
             }
         }
@@ -120,6 +125,11 @@ public class Mutant : MonoBehaviour
         gettingHit = false;
     }
 
+    public void DeathFinished(string s)
+    {
+        StartCoroutine(DeactivationWait());
+    }
+
     private bool CheckIfHit()
     {
         if (Input.GetMouseButtonDown(0))
@@ -142,6 +152,14 @@ public class Mutant : MonoBehaviour
         }
     }
 
+    private void CheckIfDead() {
+        if (Input.GetKeyDown(KeyCode.G)) {
+            movingState = State.DEAD;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+            animator.SetTrigger("Dead 1");
+        }
+    }
 
     private bool CheckAttackDistance()
     {
@@ -170,4 +188,11 @@ public class Mutant : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);   
         }
     }
+
+    IEnumerator DeactivationWait()
+    {
+        yield return new WaitForSeconds(20);
+        Destroy(gameObject);
+    }
+
 }
