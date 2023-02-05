@@ -37,13 +37,12 @@ public class Mutant : MonoBehaviour
 
     void Start() {
         attacking = false;
-        gettingHit = false;        
+        gettingHit = false;
     }
 
     void Update()
     {
         CheckIfHit();
-        //Debug.Log(gettingHit);
         if (!gettingHit) {
             switch (movingState)
             {
@@ -81,14 +80,12 @@ public class Mutant : MonoBehaviour
 
     private void Attack()
     {
-        //Debug.Log("in attack");
-        //Debug.Log(attacking);
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
 
         if (!CheckAttackDistance() && !attacking)
         {
-            attackTimeTotal = 1f;
+            attackTimeTotal = 2f;
             movingState = State.CHASE;
         } else {
             RotateTowardsPlayer();
@@ -103,14 +100,12 @@ public class Mutant : MonoBehaviour
 
     public void PrintEvent(string s)
     {
-        Debug.Log("attacking done");
         attacking = false;
     }
 
     public void HitLeftFinish(string s)
     {
         attackTimeTotal = attackTime;
-        Debug.Log("getting hit done");
         gettingHit = false;
     }
 
