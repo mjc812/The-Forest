@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Mutant : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Mutant : MonoBehaviour
         IDLE,
         WALK,
         CHASE,
-        ATTACK
+        ATTACK,
+        DEAD
     }
 
     private Animator animator;
@@ -22,7 +24,11 @@ public class Mutant : MonoBehaviour
     private float stopNavMeshAgentDistance = 1.8f;
     public float rotationSpeed = 10f;
 
+    private float attackTime = 2.5f;
+    private float attackTimeTotal = 1f;
+
     private bool attacking;
+    private bool gettingHit;
    
     void Awake()
     {
@@ -35,26 +41,30 @@ public class Mutant : MonoBehaviour
     }
 
     void Start() {
-        //animator.SetBool("Walk", true);
+        attacking = false;
+        gettingHit = false;
     }
 
     void Update()
     {
-        // Debug.Log("---------------------");
-        // Debug.Log(movingState);
-        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
-        switch (movingState)
-        {
-            case State.CHASE:
+        if (movingState != State.DEAD) {
+            CheckIfHit();
+            CheckIfDead();
+            if (!gettingHit) {
+                switch (movingState)
                 {
-                    Chase();
-                    break;
+                    case State.CHASE:
+                    {
+                        Chase();
+                        break;
+                    }
+                    case State.ATTACK:
+                    {
+                        Attack();
+                        break;
+                    }
                 }
-            case State.ATTACK:
-                {
-                    Attack();
-                    break;
-                }
+            }
         }
     }
 
@@ -73,9 +83,6 @@ public class Mutant : MonoBehaviour
         }
     }
 
-    private float attackTime = 2f;
-    private float attackTimeTotal = 1f;
-
     private void Attack()
     {
         navMeshAgent.isStopped = true;
@@ -83,7 +90,7 @@ public class Mutant : MonoBehaviour
 
         if (!CheckAttackDistance() && !attacking)
         {
-            attackTimeTotal = 1f;
+            attackTimeTotal = 2f;
             movingState = State.CHASE;
         } else {
             RotateTowardsPlayer();
@@ -91,17 +98,77 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                animator.SetTrigger("Attack");
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 5);
+                if (randomAnimationNumber == 0) {
+                    animator.SetTrigger("Attack 1");
+                } else if (randomAnimationNumber == 1) {
+                    animator.SetTrigger("Attack 2");
+                } else if (randomAnimationNumber == 2) {
+                    animator.SetTrigger("Attack 5");
+                } else if (randomAnimationNumber == 3) {
+                    animator.SetTrigger("Attack 8");
+                } else {
+                    animator.SetTrigger("Attack 10");
+                }
             }
         }
     }
 
-    public void PrintEvent(string s)
+    public void AttackFinished(string s)
     {
         attacking = false;
-        Debug.Log("PrintEvent: " + s + " called at: " + Time.time);
     }
 
+    public void HitFinished(string s)
+    {
+        attackTimeTotal = attackTime;
+        gettingHit = false;
+    }
+
+    public void DeathFinished(string s)
+    {
+        StartCoroutine(DeactivationWait());
+    }
+
+    private bool CheckIfHit()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+            gettingHit = true;
+
+            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+            if (randomAnimationNumber == 0) {
+                animator.SetTrigger("Hit Left");
+            } else if (randomAnimationNumber == 1) {
+                animator.SetTrigger("Hit Right");
+            } else {
+                animator.SetTrigger("Hit Center");
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void CheckIfDead() {
+        if (Input.GetKeyDown(KeyCode.G)) {
+            movingState = State.DEAD;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+            if (randomAnimationNumber == 0) {
+                animator.SetTrigger("Dead 1");
+            } else if (randomAnimationNumber == 1) {
+                animator.SetTrigger("Dead 2");
+            } else if (randomAnimationNumber == 2) {
+                animator.SetTrigger("Dead 3");
+            } else {
+                animator.SetTrigger("Dead 4");
+            }
+        }
+    }
 
     private bool CheckAttackDistance()
     {
@@ -130,4 +197,11 @@ public class Mutant : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);   
         }
     }
+
+    IEnumerator DeactivationWait()
+    {
+        yield return new WaitForSeconds(20);
+        Destroy(gameObject);
+    }
+
 }
