@@ -19,10 +19,17 @@ public class Mutant : MonoBehaviour
 
     private State movingState;
 
-    private float chaseSpeed = 2.0f;
+    private float walkSpeed = 0.5f;
+    private float maxWalkTime = 10.0f;
+    private float totalWalkTime = 10.0f;
+    private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
+
+    private float chaseDistance = 10.0f;
+    private float chaseSpeed = 3.0f;
+
     private float attackDistance = 4f;
     private float stopNavMeshAgentDistance = 1.8f;
-    public float rotationSpeed = 10f;
+    private float rotationSpeed = 10f;
 
     private float attackTime = 2.5f;
     private float attackTimeTotal = 1f;
@@ -36,13 +43,15 @@ public class Mutant : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
 
-        movingState = State.CHASE;
+        movingState = State.WALK;
         navMeshAgent.updateRotation = false;
     }
 
     void Start() {
         attacking = false;
         gettingHit = false;
+        animator.SetBool("Walk", false);
+        animator.SetBool("Run", false);
     }
 
     void Update()
@@ -53,6 +62,11 @@ public class Mutant : MonoBehaviour
             if (!gettingHit) {
                 switch (movingState)
                 {
+                    case State.WALK:
+                    {
+                        Walk();
+                        break;
+                    }
                     case State.CHASE:
                     {
                         Chase();
@@ -64,6 +78,28 @@ public class Mutant : MonoBehaviour
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    private void Walk()
+    {
+        navMeshAgent.isStopped = false;
+        navMeshAgent.speed = walkSpeed;
+        totalWalkTime += Time.deltaTime;
+        animator.SetBool("Walk", true);
+
+        if (CheckChaseDistance())
+        {
+            animator.SetBool("Walk", false);
+            movingState = State.CHASE;
+        } else
+        {
+            if (totalWalkTime > maxWalkTime)
+            {
+                totalWalkTime = 0.0f;
+                NavMeshHit nextDestination = GetNavMeshDestination();
+                navMeshAgent.SetDestination(nextDestination.position);
             }
         }
     }
@@ -176,6 +212,12 @@ public class Mutant : MonoBehaviour
         return dist <= attackDistance;
     }
 
+    private bool CheckChaseDistance()
+    {
+        float dist = Vector3.Distance(player.position, transform.position);
+        return dist <= chaseDistance;
+    }
+
     private bool CheckNavMeshAgentDistance()
     {
         float dist = Vector3.Distance(player.position, transform.position);
@@ -196,6 +238,23 @@ public class Mutant : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(navMeshAgent.velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);   
         }
+    }
+
+    private NavMeshHit GetNavMeshDestination()
+    {
+        float destinationRadius = Random.Range(
+            destinationRadiusMin,
+            destinationRadiusMax
+        );
+
+        Vector3 direction = Random.insideUnitSphere * destinationRadius;
+        direction += transform.position;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(direction, out navHit, destinationRadius, NavMesh.AllAreas);
+
+        return navHit;
     }
 
     IEnumerator DeactivationWait()
