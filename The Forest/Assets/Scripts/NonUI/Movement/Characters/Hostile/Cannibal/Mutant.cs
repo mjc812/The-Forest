@@ -23,6 +23,7 @@ public class Mutant : MonoBehaviour
     public float rotationSpeed = 10f;
 
     private bool attacking;
+    private bool gettingHit;
    
     void Awake()
     {
@@ -35,26 +36,28 @@ public class Mutant : MonoBehaviour
     }
 
     void Start() {
-        //animator.SetBool("Walk", true);
+        attacking = false;
+        gettingHit = false;        
     }
 
     void Update()
     {
-        // Debug.Log("---------------------");
-        // Debug.Log(movingState);
-        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
-        switch (movingState)
-        {
-            case State.CHASE:
+        CheckIfHit();
+        //Debug.Log(gettingHit);
+        if (!gettingHit) {
+            switch (movingState)
+            {
+                case State.CHASE:
                 {
                     Chase();
                     break;
                 }
-            case State.ATTACK:
+                case State.ATTACK:
                 {
                     Attack();
                     break;
                 }
+            }
         }
     }
 
@@ -78,6 +81,8 @@ public class Mutant : MonoBehaviour
 
     private void Attack()
     {
+        //Debug.Log("in attack");
+        //Debug.Log(attacking);
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
 
@@ -98,8 +103,29 @@ public class Mutant : MonoBehaviour
 
     public void PrintEvent(string s)
     {
+        Debug.Log("attacking done");
         attacking = false;
-        Debug.Log("PrintEvent: " + s + " called at: " + Time.time);
+    }
+
+    public void HitLeftFinish(string s)
+    {
+        attackTimeTotal = attackTime;
+        Debug.Log("getting hit done");
+        gettingHit = false;
+    }
+
+    private bool CheckIfHit()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+            gettingHit = true;
+            animator.SetTrigger("Hit Left");
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
