@@ -116,7 +116,6 @@ public class Mutant : MonoBehaviour
 
     public void HitFinished(string s)
     {
-        Debug.Log("hit finished");
         attackTimeTotal = attackTime;
         gettingHit = false;
     }
