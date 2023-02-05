@@ -24,7 +24,7 @@ public class Mutant : MonoBehaviour
     private float totalWalkTime = 10.0f;
     private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
 
-    private float chaseDistance = 10.0f;
+    private float chaseDistance = 15.0f;
     private float chaseSpeed = 3.0f;
 
     private float attackDistance = 4f;
@@ -35,6 +35,7 @@ public class Mutant : MonoBehaviour
     private float attackTimeTotal = 1f;
 
     private bool attacking;
+    private bool shouting;
     private bool gettingHit;
    
     void Awake()
@@ -49,6 +50,7 @@ public class Mutant : MonoBehaviour
 
     void Start() {
         attacking = false;
+        shouting = false;
         gettingHit = false;
         animator.SetBool("Walk", false);
         animator.SetBool("Run", false);
@@ -56,7 +58,7 @@ public class Mutant : MonoBehaviour
 
     void Update()
     {
-        if (movingState != State.DEAD) {
+        if (movingState != State.DEAD && !shouting) {
             CheckIfHit();
             CheckIfDead();
             if (!gettingHit) {
@@ -92,6 +94,7 @@ public class Mutant : MonoBehaviour
         if (CheckChaseDistance())
         {
             animator.SetBool("Walk", false);
+            TriggerShout();
             movingState = State.CHASE;
         } else
         {
@@ -155,6 +158,11 @@ public class Mutant : MonoBehaviour
         attacking = false;
     }
 
+    public void ShoutFinished(string s)
+    {
+        shouting = false;
+    }
+
     public void HitFinished(string s)
     {
         attackTimeTotal = attackTime;
@@ -164,6 +172,13 @@ public class Mutant : MonoBehaviour
     public void DeathFinished(string s)
     {
         StartCoroutine(DeactivationWait());
+    }
+
+    private void TriggerShout() {
+        shouting = true;
+        animator.SetTrigger("Shout 2");
+        navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
     }
 
     private bool CheckIfHit()
