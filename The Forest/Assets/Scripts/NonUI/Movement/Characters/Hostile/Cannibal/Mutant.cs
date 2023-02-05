@@ -93,13 +93,17 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 5);
                 if (randomAnimationNumber == 0) {
-                    animator.SetTrigger("Attack 1");
+                    animator.SetTrigger("Attack 10");
                 } else if (randomAnimationNumber == 1) {
                     animator.SetTrigger("Attack 2");
+                } else if (randomAnimationNumber == 2) {
+                    animator.SetTrigger("Attack 5");
+                } else if (randomAnimationNumber == 3) {
+                    animator.SetTrigger("Attack 8");
                 } else {
-                    animator.SetTrigger("Attack 2");
+                    animator.SetTrigger("Attack 10");
                 }
             }
         }
@@ -117,6 +121,7 @@ public class Mutant : MonoBehaviour
 
     public void HitFinish(string s)
     {
+        Debug.Log("hit finished");
         attackTimeTotal = attackTime;
         gettingHit = false;
     }
