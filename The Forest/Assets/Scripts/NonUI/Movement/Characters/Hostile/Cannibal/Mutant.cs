@@ -103,13 +103,7 @@ public class Mutant : MonoBehaviour
         attacking = false;
     }
 
-    public void HitLeftFinish(string s)
-    {
-        attackTimeTotal = attackTime;
-        gettingHit = false;
-    }
-
-    public void HitRightFinish(string s)
+    public void HitFinish(string s)
     {
         attackTimeTotal = attackTime;
         gettingHit = false;
@@ -123,12 +117,13 @@ public class Mutant : MonoBehaviour
             navMeshAgent.velocity = Vector3.zero;
             gettingHit = true;
 
-            int randomAnimationNumber = UnityEngine.Random.Range(0, 2);
+            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
             if (randomAnimationNumber == 0) {
                 animator.SetTrigger("Hit Left");
-            } else {
+            } else if (randomAnimationNumber == 1) {
                 animator.SetTrigger("Hit Right");
-                Debug.Log("right");
+            } else {
+                animator.SetTrigger("Hit Center");
             }
             return true;
         } else {
