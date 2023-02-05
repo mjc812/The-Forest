@@ -59,8 +59,6 @@ public class Mutant : MonoBehaviour
     void Update()
     {
         if (movingState != State.DEAD && !shouting) {
-            CheckIfHit();
-            CheckIfDead();
             if (!gettingHit) {
                 switch (movingState)
                 {
@@ -81,6 +79,8 @@ public class Mutant : MonoBehaviour
                     }
                 }
             }
+            CheckIfHit();
+            CheckIfDead();
         }
     }
 
@@ -181,25 +181,28 @@ public class Mutant : MonoBehaviour
         navMeshAgent.velocity = Vector3.zero;
     }
 
-    private bool CheckIfHit()
+    private void CheckIfHit()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            navMeshAgent.isStopped = true;
-            navMeshAgent.velocity = Vector3.zero;
-            gettingHit = true;
-
-            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-            if (randomAnimationNumber == 0) {
-                animator.SetTrigger("Hit Left");
-            } else if (randomAnimationNumber == 1) {
-                animator.SetTrigger("Hit Right");
+            if (movingState == State.WALK) {
+                animator.SetBool("Walk", false);
+                TriggerShout();
+                movingState = State.CHASE;
             } else {
-                animator.SetTrigger("Hit Center");
+                navMeshAgent.isStopped = true;
+                navMeshAgent.velocity = Vector3.zero;
+                gettingHit = true;
+
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+                if (randomAnimationNumber == 0) {
+                    animator.SetTrigger("Hit Left");
+                } else if (randomAnimationNumber == 1) {
+                    animator.SetTrigger("Hit Right");
+                } else {
+                    animator.SetTrigger("Hit Center");
+                }
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
