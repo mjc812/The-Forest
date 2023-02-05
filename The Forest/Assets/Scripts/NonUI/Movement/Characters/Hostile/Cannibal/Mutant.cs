@@ -187,7 +187,7 @@ public class Mutant : MonoBehaviour
 
     private void CheckIfHit()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !gettingHit)
         {
             if (movingState == State.WALK) {
                 animator.SetBool("Walk", false);
