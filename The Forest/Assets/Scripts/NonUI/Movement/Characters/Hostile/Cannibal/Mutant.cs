@@ -157,7 +157,16 @@ public class Mutant : MonoBehaviour
             movingState = State.DEAD;
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
-            animator.SetTrigger("Dead 1");
+            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+            if (randomAnimationNumber == 0) {
+                animator.SetTrigger("Dead 1");
+            } else if (randomAnimationNumber == 1) {
+                animator.SetTrigger("Dead 2");
+            } else if (randomAnimationNumber == 2) {
+                animator.SetTrigger("Dead 3");
+            } else {
+                animator.SetTrigger("Dead 4");
+            }
         }
     }
 
