@@ -22,6 +22,9 @@ public class Mutant : MonoBehaviour
     private float stopNavMeshAgentDistance = 1.8f;
     public float rotationSpeed = 10f;
 
+    private float attackTime = 2f;
+    private float attackTimeTotal = 1f;
+
     private bool attacking;
     private bool gettingHit;
    
@@ -75,9 +78,6 @@ public class Mutant : MonoBehaviour
         }
     }
 
-    private float attackTime = 2f;
-    private float attackTimeTotal = 1f;
-
     private void Attack()
     {
         navMeshAgent.isStopped = true;
@@ -93,12 +93,24 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                animator.SetTrigger("Attack");
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+                if (randomAnimationNumber == 0) {
+                    animator.SetTrigger("Attack 1");
+                } else if (randomAnimationNumber == 1) {
+                    animator.SetTrigger("Attack 2");
+                } else {
+                    animator.SetTrigger("Attack 2");
+                }
             }
         }
     }
 
     public void PrintEvent(string s)
+    {
+        attacking = false;
+    }
+
+    public void AttackFinished(string s)
     {
         attacking = false;
     }
