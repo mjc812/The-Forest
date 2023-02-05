@@ -166,6 +166,10 @@ public class Mutant : MonoBehaviour
     public void HitFinished(string s)
     {
         attackTimeTotal = attackTime;
+        if (movingState == State.ATTACK) {
+            //animator.SetTrigger("Attack 1");
+            attacking = true;
+        }
         gettingHit = false;
     }
 
