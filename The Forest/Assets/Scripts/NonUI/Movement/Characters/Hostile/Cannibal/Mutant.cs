@@ -6,7 +6,6 @@ public class Mutant : MonoBehaviour
 {
     private enum State
     {
-        IDLE,
         WALK,
         CHASE,
         ATTACK,
@@ -19,15 +18,15 @@ public class Mutant : MonoBehaviour
 
     private State movingState;
 
-    private float walkSpeed = 0.5f;
-    private float maxWalkTime = 10.0f;
+    private float walkSpeed = 0.9f;
+    private float maxWalkTime = 20.0f;
     private float totalWalkTime = 10.0f;
     private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
 
-    private float chaseDistance = 15.0f;
-    private float chaseSpeed = 3.0f;
+    public float chaseDistance = 15.0f;
+    private float chaseSpeed = 3.5f;
 
-    private float attackDistance = 4f;
+    private float attackDistance = 1.6f;
     private float stopNavMeshAgentDistance = 1.8f;
     private float rotationSpeed = 10f;
 
@@ -136,7 +135,7 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 5);
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
                 if (randomAnimationNumber == 0) {
                     animator.SetTrigger("Attack 1");
                 } else if (randomAnimationNumber == 1) {
@@ -166,7 +165,6 @@ public class Mutant : MonoBehaviour
     {
         attackTimeTotal = attackTime;
         if (movingState == State.ATTACK) {
-            //animator.SetTrigger("Attack 1");
             attacking = true;
         }
         gettingHit = false;
