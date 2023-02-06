@@ -20,7 +20,7 @@ public class Mutant : MonoBehaviour
 
     private float walkSpeed = 0.9f;
     private float maxWalkTime = 20.0f;
-    private float totalWalkTime = 10.0f;
+    private float totalWalkTime = 0.0f;
     private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
 
     public float chaseDistance = 15.0f;
@@ -31,7 +31,7 @@ public class Mutant : MonoBehaviour
     private float rotationSpeed = 10f;
 
     private float attackTime = 2.5f;
-    private float attackTimeTotal = 1f;
+    private float attackTimeTotal = 2.5f;
 
     private bool attacking;
     private bool shouting;
@@ -52,6 +52,8 @@ public class Mutant : MonoBehaviour
         gettingHit = false;
         animator.SetBool("Walk", false);
         animator.SetBool("Run", false);
+        NavMeshHit nextDestination = GetNavMeshDestination();
+        navMeshAgent.SetDestination(nextDestination.position);
     }
 
     void Update()
