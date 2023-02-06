@@ -3,6 +3,8 @@ using CameraShake;
 
 public abstract class Weapon : MonoBehaviour, Item
 {
+    public GameObject[] fleshHitEffects;
+    
     public abstract int ID { get; }
     public abstract string Description { get; }
     public abstract Sprite Sprite { get; }
@@ -48,9 +50,11 @@ public abstract class Weapon : MonoBehaviour, Item
 
     protected void RaycastTargetHit(RaycastHit hit)
     {
-        if (hit.transform.tag == "Cannibal")
+        if (hit.transform.tag == "Character")
         {
-            hit.transform.GetComponent<Health>().ApplyDamage(25f);
+            Debug.Log("character");
+            SpawnDecal(hit, fleshHitEffects[Random.Range(0, fleshHitEffects.Length)]);
+            //hit.transform.GetComponent<Health>().ApplyDamage(25f);
         }
     }
 
@@ -66,4 +70,10 @@ public abstract class Weapon : MonoBehaviour, Item
     public bool IsReadyForUse() {
         return Time.time > nextTimeToFire;
     }
+
+    private void SpawnDecal(RaycastHit hit, GameObject prefab)
+	{
+		GameObject spawnedDecal = GameObject.Instantiate(prefab, hit.point, Quaternion.LookRotation(hit.normal));
+		spawnedDecal.transform.SetParent(hit.collider.transform);
+	}
 }
