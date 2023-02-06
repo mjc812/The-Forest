@@ -45,7 +45,6 @@ public class Mutant : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
 
         movingState = State.WALK;
-        navMeshAgent.updateRotation = false;
     }
 
     void Start() {
@@ -112,7 +111,7 @@ public class Mutant : MonoBehaviour
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(player.position);
         navMeshAgent.speed = chaseSpeed;
-        rotateTowardsDirection();
+        RotateTowardsPlayer();
         animator.SetBool("Run", true);
 
         if (CheckAttackDistance())
@@ -251,15 +250,6 @@ public class Mutant : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
-    }
-
-    private void rotateTowardsDirection()
-    {
-        Vector3 direction = (player.position - transform.position).normalized;
-        if (navMeshAgent.velocity.normalized != Vector3.zero) {
-            Quaternion lookRotation = Quaternion.LookRotation(navMeshAgent.velocity.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);   
-        }
     }
 
     private NavMeshHit GetNavMeshDestination()
