@@ -6,7 +6,6 @@ public class Mutant : MonoBehaviour
 {
     private enum State
     {
-        IDLE,
         WALK,
         CHASE,
         ATTACK,
@@ -19,15 +18,23 @@ public class Mutant : MonoBehaviour
 
     private State movingState;
 
-    private float chaseSpeed = 2.0f;
-    private float attackDistance = 4f;
+    private float walkSpeed = 0.9f;
+    private float maxWalkTime = 20.0f;
+    private float totalWalkTime = 0.0f;
+    private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
+
+    public float chaseDistance = 15.0f;
+    private float chaseSpeed = 3.5f;
+
+    private float attackDistance = 1.6f;
     private float stopNavMeshAgentDistance = 1.8f;
-    public float rotationSpeed = 10f;
+    private float rotationSpeed = 10f;
 
     private float attackTime = 2.5f;
-    private float attackTimeTotal = 1f;
+    private float attackTimeTotal = 2.5f;
 
     private bool attacking;
+    private bool shouting;
     private bool gettingHit;
    
     void Awake()
@@ -36,23 +43,30 @@ public class Mutant : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
 
-        movingState = State.CHASE;
-        navMeshAgent.updateRotation = false;
+        movingState = State.WALK;
     }
 
     void Start() {
         attacking = false;
+        shouting = false;
         gettingHit = false;
+        animator.SetBool("Walk", false);
+        animator.SetBool("Run", false);
+        NavMeshHit nextDestination = GetNavMeshDestination();
+        navMeshAgent.SetDestination(nextDestination.position);
     }
 
     void Update()
     {
-        if (movingState != State.DEAD) {
-            CheckIfHit();
-            CheckIfDead();
+        if (movingState != State.DEAD && !shouting) {
             if (!gettingHit) {
                 switch (movingState)
                 {
+                    case State.WALK:
+                    {
+                        Walk();
+                        break;
+                    }
                     case State.CHASE:
                     {
                         Chase();
@@ -65,6 +79,31 @@ public class Mutant : MonoBehaviour
                     }
                 }
             }
+            CheckIfHit();
+            CheckIfDead();
+        }
+    }
+
+    private void Walk()
+    {
+        navMeshAgent.isStopped = false;
+        navMeshAgent.speed = walkSpeed;
+        totalWalkTime += Time.deltaTime;
+        animator.SetBool("Walk", true);
+
+        if (CheckChaseDistance())
+        {
+            animator.SetBool("Walk", false);
+            TriggerShout();
+            movingState = State.CHASE;
+        } else
+        {
+            if (totalWalkTime > maxWalkTime)
+            {
+                totalWalkTime = 0.0f;
+                NavMeshHit nextDestination = GetNavMeshDestination();
+                navMeshAgent.SetDestination(nextDestination.position);
+            }
         }
     }
 
@@ -73,7 +112,7 @@ public class Mutant : MonoBehaviour
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(player.position);
         navMeshAgent.speed = chaseSpeed;
-        rotateTowardsDirection();
+        RotateTowardsPlayer();
         animator.SetBool("Run", true);
 
         if (CheckAttackDistance())
@@ -98,7 +137,7 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 5);
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
                 if (randomAnimationNumber == 0) {
                     animator.SetTrigger("Attack 1");
                 } else if (randomAnimationNumber == 1) {
@@ -119,9 +158,17 @@ public class Mutant : MonoBehaviour
         attacking = false;
     }
 
+    public void ShoutFinished(string s)
+    {
+        shouting = false;
+    }
+
     public void HitFinished(string s)
     {
         attackTimeTotal = attackTime;
+        if (movingState == State.ATTACK) {
+            attacking = true;
+        }
         gettingHit = false;
     }
 
@@ -130,25 +177,35 @@ public class Mutant : MonoBehaviour
         StartCoroutine(DeactivationWait());
     }
 
-    private bool CheckIfHit()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            navMeshAgent.isStopped = true;
-            navMeshAgent.velocity = Vector3.zero;
-            gettingHit = true;
+    private void TriggerShout() {
+        shouting = true;
+        animator.SetTrigger("Shout 2");
+        navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
+    }
 
-            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-            if (randomAnimationNumber == 0) {
-                animator.SetTrigger("Hit Left");
-            } else if (randomAnimationNumber == 1) {
-                animator.SetTrigger("Hit Right");
+    private void CheckIfHit()
+    {
+        if (Input.GetMouseButtonDown(0) && !gettingHit)
+        {
+            if (movingState == State.WALK) {
+                animator.SetBool("Walk", false);
+                TriggerShout();
+                movingState = State.CHASE;
             } else {
-                animator.SetTrigger("Hit Center");
+                navMeshAgent.isStopped = true;
+                navMeshAgent.velocity = Vector3.zero;
+                gettingHit = true;
+
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+                if (randomAnimationNumber == 0) {
+                    animator.SetTrigger("Hit Left");
+                } else if (randomAnimationNumber == 1) {
+                    animator.SetTrigger("Hit Right");
+                } else {
+                    animator.SetTrigger("Hit Center");
+                }
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -176,6 +233,12 @@ public class Mutant : MonoBehaviour
         return dist <= attackDistance;
     }
 
+    private bool CheckChaseDistance()
+    {
+        float dist = Vector3.Distance(player.position, transform.position);
+        return dist <= chaseDistance;
+    }
+
     private bool CheckNavMeshAgentDistance()
     {
         float dist = Vector3.Distance(player.position, transform.position);
@@ -189,13 +252,21 @@ public class Mutant : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
-    private void rotateTowardsDirection()
+    private NavMeshHit GetNavMeshDestination()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        if (navMeshAgent.velocity.normalized != Vector3.zero) {
-            Quaternion lookRotation = Quaternion.LookRotation(navMeshAgent.velocity.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);   
-        }
+        float destinationRadius = Random.Range(
+            destinationRadiusMin,
+            destinationRadiusMax
+        );
+
+        Vector3 direction = Random.insideUnitSphere * destinationRadius;
+        direction += transform.position;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(direction, out navHit, destinationRadius, NavMesh.AllAreas);
+
+        return navHit;
     }
 
     IEnumerator DeactivationWait()
