@@ -15163,8 +15163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fleshHitEffects:
-  - {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
-  - {fileID: 1000010675638318, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c, type: 3}
+  - {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 3}
   fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
   shakeParams:
     positionStrength: 0.05
