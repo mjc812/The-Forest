@@ -52,7 +52,6 @@ public abstract class Weapon : MonoBehaviour, Item
     {
         if (hit.transform.tag == "Character")
         {
-            //Debug.Log("character");
             SpawnDecal(hit, fleshHitEffects[Random.Range(0, fleshHitEffects.Length)]);
             //hit.transform.GetComponent<Health>().ApplyDamage(25f);
         }

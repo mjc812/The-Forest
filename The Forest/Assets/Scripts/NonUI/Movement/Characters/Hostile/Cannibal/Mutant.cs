@@ -13,6 +13,7 @@ public class Mutant : MonoBehaviour
     }
 
     private Animator animator;
+    private CannibalHealth cannibalHealth;
     private NavMeshAgent navMeshAgent;
     private Transform player;
 
@@ -41,6 +42,7 @@ public class Mutant : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        cannibalHealth = GetComponent<CannibalHealth>();
         player = GameObject.FindWithTag("Player").transform;
 
         movingState = State.WALK;

@@ -1,7 +1,12 @@
 public class CannibalHealth : Health
 {
-    private void Start()
+    protected override int startingHealth
     {
-        CurrentHealth = 100f;
+        get => 100;
+    }
+
+    protected override bool regenHealth
+    {
+        get => false;
     }
 }
