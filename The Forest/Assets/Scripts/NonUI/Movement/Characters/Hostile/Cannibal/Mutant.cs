@@ -23,12 +23,12 @@ public class Mutant : MonoBehaviour
     private float totalWalkTime = 0.0f;
     private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
 
-    public float chaseDistance = 15.0f;
+    private float chaseDistance = 15.0f;
     private float chaseSpeed = 3.5f;
 
     private float attackDistance = 1.6f;
     private float stopNavMeshAgentDistance = 1.8f;
-    private float rotationSpeed = 10f;
+    private float rotationSpeed = 5f;
 
     private float attackTime = 2.5f;
     private float attackTimeTotal = 2.5f;
@@ -81,6 +81,8 @@ public class Mutant : MonoBehaviour
             }
             CheckIfHit();
             CheckIfDead();
+        } else if (shouting) {
+            RotateTowardsPlayer();   
         }
     }
 
@@ -196,6 +198,7 @@ public class Mutant : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 navMeshAgent.velocity = Vector3.zero;
                 gettingHit = true;
+                attacking = false;
 
                 int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
                 if (randomAnimationNumber == 0) {
