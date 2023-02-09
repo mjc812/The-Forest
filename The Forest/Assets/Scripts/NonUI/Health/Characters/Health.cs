@@ -7,8 +7,13 @@ public abstract class Health : MonoBehaviour
 
     protected float health;
 
+    void Start() {
+        health = startingHealth;        
+    }
+
     public void ApplyDamage(float amount)
     {
+        Debug.Log(health);
         health -= amount;
     }
 
