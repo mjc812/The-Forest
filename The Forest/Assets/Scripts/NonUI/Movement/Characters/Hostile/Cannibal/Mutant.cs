@@ -232,6 +232,11 @@ public class Mutant : MonoBehaviour
         }
     }
 
+    public void Hit(float amount, bool isCentral, bool isLeft, bool isRight)
+    {
+        Debug.Log("mutant hit" + amount);
+    }
+
     private bool CheckAttackDistance()
     {
         float dist = Vector3.Distance(player.position, transform.position);

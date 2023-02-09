@@ -7,14 +7,16 @@ public abstract class Health : MonoBehaviour
 
     protected float health;
 
-    void Start() {
+    protected virtual void Start() {
         health = startingHealth;        
     }
 
-    public void ApplyDamage(float amount)
+    protected abstract void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight);
+
+    public void ApplyDamage(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        Debug.Log(health);
         health -= amount;
+        DamageEffects(amount, isCentral, isLeft, isRight);
     }
 
     public void ApplyRegen(float amount)
