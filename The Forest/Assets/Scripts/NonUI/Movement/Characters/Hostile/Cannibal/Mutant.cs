@@ -190,28 +190,28 @@ public class Mutant : MonoBehaviour
 
     private void CheckIfHit()
     {
-        if (Input.GetMouseButtonDown(0) && !gettingHit)
-        {
-            if (movingState == State.WALK) {
-                animator.SetBool("Walk", false);
-                TriggerShout();
-                movingState = State.CHASE;
-            } else {
-                navMeshAgent.isStopped = true;
-                navMeshAgent.velocity = Vector3.zero;
-                gettingHit = true;
-                attacking = false;
+        // if (Input.GetMouseButtonDown(0) && !gettingHit)
+        // {
+        //     if (movingState == State.WALK) {
+        //         animator.SetBool("Walk", false);
+        //         TriggerShout();
+        //         movingState = State.CHASE;
+        //     } else {
+        //         navMeshAgent.isStopped = true;
+        //         navMeshAgent.velocity = Vector3.zero;
+        //         gettingHit = true;
+        //         attacking = false;
 
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-                if (randomAnimationNumber == 0) {
-                    animator.SetTrigger("Hit Left");
-                } else if (randomAnimationNumber == 1) {
-                    animator.SetTrigger("Hit Right");
-                } else {
-                    animator.SetTrigger("Hit Center");
-                }
-            }
-        }
+        //         int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+        //         if (randomAnimationNumber == 0) {
+        //             animator.SetTrigger("Hit Left");
+        //         } else if (randomAnimationNumber == 1) {
+        //             animator.SetTrigger("Hit Right");
+        //         } else {
+        //             animator.SetTrigger("Hit Center");
+        //         }
+        //     }
+        // }
     }
 
     private void CheckIfDead() {
@@ -234,7 +234,30 @@ public class Mutant : MonoBehaviour
 
     public void Hit(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        Debug.Log("mutant hit" + amount);
+        //agent stops when shot while shouting
+        if (!gettingHit)
+        {
+            if (movingState == State.WALK) {
+                animator.SetBool("Walk", false);
+                TriggerShout();
+                movingState = State.CHASE;
+            } else {
+                navMeshAgent.isStopped = true;
+                navMeshAgent.velocity = Vector3.zero;
+                gettingHit = true;
+                attacking = false;
+
+                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
+                if (randomAnimationNumber == 0) {
+                    animator.SetTrigger("Hit Left");
+                } else if (randomAnimationNumber == 1) {
+                    animator.SetTrigger("Hit Right");
+                } else {
+                    animator.SetTrigger("Hit Center");
+                }
+            }
+        }
+
     }
 
     private bool CheckAttackDistance()
