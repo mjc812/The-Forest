@@ -13,6 +13,14 @@ public class Mutant : MonoBehaviour
         DEAD
     }
 
+    public GameObject head;
+    public GameObject leftUpperArm;
+    public GameObject rightUpperArm;
+    public GameObject leftLowerArm;
+    public GameObject rightLowerArm;
+    public GameObject leftThigh;
+    public GameObject rightThigh;
+
     private Animator animator;
     private CannibalHealth cannibalHealth;
     private NavMeshAgent navMeshAgent;
@@ -187,6 +195,13 @@ public class Mutant : MonoBehaviour
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
             TriggerRandomAnimation(deathAnimations);
+            head.SetActive(false);
+            leftUpperArm.SetActive(false);
+            rightUpperArm.SetActive(false);
+            leftLowerArm.SetActive(false);
+            rightLowerArm.SetActive(false);
+            leftThigh.SetActive(false);
+            rightThigh.SetActive(false);
         }
     }
 

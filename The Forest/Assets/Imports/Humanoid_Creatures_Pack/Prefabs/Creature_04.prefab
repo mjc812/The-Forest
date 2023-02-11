@@ -188,6 +188,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e72587fc81eb4b5aa9176f527899960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 1250038008247628}
+  leftUpperArm: {fileID: 1939583523170778}
+  rightUpperArm: {fileID: 1246950356513564}
+  leftLowerArm: {fileID: 1750410633497598}
+  rightLowerArm: {fileID: 1882591212240212}
+  leftThigh: {fileID: 1463047733467648}
+  rightThigh: {fileID: 1364578335482330}
 --- !u!114 &1162514614
 MonoBehaviour:
   m_ObjectHideFlags: 0
