@@ -42,6 +42,7 @@ public class Mutant : MonoBehaviour
     private bool attacking;
     private bool shouting;
     private bool gettingHit;
+    private bool dying;
    
     void Awake()
     {
@@ -65,28 +66,26 @@ public class Mutant : MonoBehaviour
 
     void Update()
     {
-        if (movingState != State.DEAD && !shouting) {
-            if (!gettingHit) {
-                switch (movingState)
+        CheckIfDead();
+        if (movingState != State.DEAD && !shouting && !gettingHit) {
+            switch (movingState)
+            {
+                case State.WALK:
                 {
-                    case State.WALK:
-                    {
-                        Walk();
-                        break;
-                    }
-                    case State.CHASE:
-                    {
-                        Chase();
-                        break;
-                    }
-                    case State.ATTACK:
-                    {
-                        Attack();
-                        break;
-                    }
+                    Walk();
+                    break;
+                }
+                case State.CHASE:
+                {
+                    Chase();
+                    break;
+                }
+                case State.ATTACK:
+                {
+                    Attack();
+                    break;
                 }
             }
-            CheckIfDead();
         } else if (shouting) {
             RotateTowardsPlayer();   
         }
@@ -182,7 +181,8 @@ public class Mutant : MonoBehaviour
     }
 
     private void CheckIfDead() {
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (cannibalHealth.isDead() && !dying) {
+            dying = true;
             movingState = State.DEAD;
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
