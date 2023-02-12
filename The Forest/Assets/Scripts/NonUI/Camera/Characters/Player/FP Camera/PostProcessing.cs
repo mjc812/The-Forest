@@ -9,35 +9,35 @@ public class PostProcessing : MonoBehaviour
     private Vignette vignette;
     private Health health;
 
-    private float lastUpdateTarget;
     private float transitionSpeed;
     private float timeCount;
     private bool headingToMax;
     private float currentPercentage;
     private float snapshotPercentage;
     private float currentVignetteIntensity;
-    private float initialVignetteIntensity;
+    private float baseVignetteIntensity;
+    private float vignetteIntensityBoost;
 
     void Awake()
     {
+        baseVignetteIntensity = 0.18f;
+        vignetteIntensityBoost = 0.15f;
         health = GameObject.FindWithTag("Player").GetComponent<Health>();
         postProcessingVolume = gameObject.GetComponent<PostProcessVolume>();
         postProcessingVolume.profile.TryGetSettings(out vignette);
         currentVignetteIntensity = vignette.intensity.value;
-        initialVignetteIntensity = vignette.intensity.value;
         headingToMax = true;
         snapshotPercentage = 0f;
         currentPercentage = 0f;
-        lastUpdateTarget = 0f;
         timeCount = 0f;
-        transitionSpeed = 4f;
+        transitionSpeed = 0.1f;
     }
 
     private void Update() {
         // Debug.Log(health.RemainingHealthPercentage());
-        // if (Input.GetKeyDown(KeyCode.V)) {
-        //     health.SetHealth(100f);
-        // }
+        if (Input.GetKeyDown(KeyCode.V)) {
+            health.SetHealth(health.ReturnHealth() + 20f);
+        }
 
         float targetPercentage = health.RemainingHealthPercentage();
 
@@ -72,6 +72,6 @@ public class PostProcessing : MonoBehaviour
 
         }
 
-        vignette.intensity.value = 1.5f * currentPercentage;
+        vignette.intensity.value = baseVignetteIntensity + (vignetteIntensityBoost * currentPercentage);
     }
 }
