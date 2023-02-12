@@ -15,8 +15,10 @@ public abstract class Health : MonoBehaviour
 
     public void ApplyDamage(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        health -= amount;
-        DamageEffects(amount, isCentral, isLeft, isRight);
+        if (health > 0) {
+            health -= amount;
+            DamageEffects(amount, isCentral, isLeft, isRight);
+        }
     }
 
     public void ApplyRegen(float amount)
