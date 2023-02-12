@@ -17,6 +17,7 @@ TagManager:
   - Head
   - FPCamera
   - Inventory
+  - Character
   layers:
   - Default
   - TransparentFX

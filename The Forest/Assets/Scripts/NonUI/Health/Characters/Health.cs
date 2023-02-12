@@ -2,15 +2,30 @@ using UnityEngine;
 
 public abstract class Health : MonoBehaviour
 {
-    protected float CurrentHealth;
+    protected abstract int startingHealth { get; }
+    protected abstract bool regenHealth { get; }
 
-    public void ApplyDamage(float damage)
+    protected float health;
+
+    protected virtual void Start() {
+        health = startingHealth;        
+    }
+
+    protected abstract void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight);
+
+    public void ApplyDamage(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        CurrentHealth -= damage;
+        health -= amount;
+        DamageEffects(amount, isCentral, isLeft, isRight);
+    }
+
+    public void ApplyRegen(float amount)
+    {
+        health += amount;
     }
 
     public bool isDead()
     {
-        return (CurrentHealth <= 0);
+        return health <= 0;
     }
 }

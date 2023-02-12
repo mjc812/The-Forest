@@ -551,6 +551,7 @@ GameObject:
   - component: {fileID: 172099108}
   - component: {fileID: 1459062928485004907}
   - component: {fileID: 1459062928485004908}
+  - component: {fileID: 1459062928485004909}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -587,7 +588,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
+  m_Height: 2
   m_Radius: 0.35
   m_SlopeLimit: 56
   m_StepOffset: 0.2
@@ -801,6 +802,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
   horizontalStepAudioClip:
   - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
+--- !u!114 &1459062928485004909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255377229922816265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce992a279e1a14afc9ee359eff33294f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2255377229971156992
 GameObject:
   m_ObjectHideFlags: 0

@@ -15162,6 +15162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd0b4978cd434af697f71d9836392b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fleshHitEffects:
+  - {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 3}
   fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
   shakeParams:
     positionStrength: 0.05

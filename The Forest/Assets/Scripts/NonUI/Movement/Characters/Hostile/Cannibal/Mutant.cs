@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Mutant : MonoBehaviour
 {
@@ -12,37 +13,60 @@ public class Mutant : MonoBehaviour
         DEAD
     }
 
+    public GameObject head;
+    public GameObject leftUpperArm;
+    public GameObject rightUpperArm;
+    public GameObject leftLowerArm;
+    public GameObject rightLowerArm;
+    public GameObject leftHand;
+    public GameObject rightHand;
+    public GameObject leftThigh;
+    public GameObject rightThigh;
+
+    public Limb leftHandCollider;
+    public Limb rightHandCollider;
+    public Limb headCollider;
+
     private Animator animator;
+    private CannibalHealth cannibalHealth;
     private NavMeshAgent navMeshAgent;
     private Transform player;
 
-    private State movingState;
+    private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
+    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" }; 
+    private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
     private float walkSpeed = 0.9f;
     private float maxWalkTime = 20.0f;
     private float totalWalkTime = 0.0f;
     private float destinationRadiusMin = 100.0f, destinationRadiusMax = 200.0f;
 
-    public float chaseDistance = 15.0f;
+    private float chaseDistance = 15.0f;
     private float chaseSpeed = 3.5f;
 
-    private float attackDistance = 1.6f;
+    private float attackDistance = 1.5f;
     private float stopNavMeshAgentDistance = 1.8f;
-    private float rotationSpeed = 10f;
+    private float rotationSpeed = 5f;
 
     private float attackTime = 2.5f;
-    private float attackTimeTotal = 2.5f;
+    private float attackTimeTotal = 2.0f;
+
+    private State movingState;
 
     private bool attacking;
     private bool shouting;
     private bool gettingHit;
+    private bool dying;
    
     void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        cannibalHealth = GetComponent<CannibalHealth>();
         player = GameObject.FindWithTag("Player").transform;
-
+        leftHandCollider = leftHand.GetComponent<Limb>();
+        rightHandCollider = rightHand.GetComponent<Limb>();
+        headCollider = head.GetComponent<Limb>();
         movingState = State.WALK;
     }
 
@@ -58,29 +82,28 @@ public class Mutant : MonoBehaviour
 
     void Update()
     {
-        if (movingState != State.DEAD && !shouting) {
-            if (!gettingHit) {
-                switch (movingState)
+        CheckIfDead();
+        if (movingState != State.DEAD && !shouting && !gettingHit && !dying) {
+            switch (movingState)
+            {
+                case State.WALK:
                 {
-                    case State.WALK:
-                    {
-                        Walk();
-                        break;
-                    }
-                    case State.CHASE:
-                    {
-                        Chase();
-                        break;
-                    }
-                    case State.ATTACK:
-                    {
-                        Attack();
-                        break;
-                    }
+                    Walk();
+                    break;
+                }
+                case State.CHASE:
+                {
+                    Chase();
+                    break;
+                }
+                case State.ATTACK:
+                {
+                    Attack();
+                    break;
                 }
             }
-            CheckIfHit();
-            CheckIfDead();
+        } else if (shouting) {
+            RotateTowardsPlayer();   
         }
     }
 
@@ -137,20 +160,29 @@ public class Mutant : MonoBehaviour
             if (attackTimeTotal >= attackTime) {
                 attackTimeTotal = 0f;
                 attacking = true;
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-                if (randomAnimationNumber == 0) {
-                    animator.SetTrigger("Attack 1");
-                } else if (randomAnimationNumber == 1) {
-                    animator.SetTrigger("Attack 2");
-                } else if (randomAnimationNumber == 2) {
-                    animator.SetTrigger("Attack 5");
-                } else if (randomAnimationNumber == 3) {
-                    animator.SetTrigger("Attack 8");
-                } else {
-                    animator.SetTrigger("Attack 10");
-                }
+                TriggerRandomAnimation(attackAnimations);
             }
         }
+    }
+
+    public void EnableRightHand(string s)
+    {
+        rightHandCollider.Enable();
+    }
+
+    public void DisableRightHand(string s)
+    {
+        rightHandCollider.Disable();
+    }
+
+    public void EnableLeftHand(string s)
+    {
+        leftHandCollider.Enable();
+    }
+
+    public void DisableLeftHand(string s)
+    {
+        leftHandCollider.Disable();
     }
 
     public void AttackFinished(string s)
@@ -174,7 +206,7 @@ public class Mutant : MonoBehaviour
 
     public void DeathFinished(string s)
     {
-        StartCoroutine(DeactivationWait());
+        StartCoroutine(DestroyWait());
     }
 
     private void TriggerShout() {
@@ -184,9 +216,20 @@ public class Mutant : MonoBehaviour
         navMeshAgent.velocity = Vector3.zero;
     }
 
-    private void CheckIfHit()
+    private void CheckIfDead() {
+        if (cannibalHealth.isDead() && !dying) {
+            dying = true;
+            headCollider.EnableTrigger();
+            movingState = State.DEAD;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+            TriggerRandomAnimation(deathAnimations);
+        }
+    }
+
+    public void Hit(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        if (Input.GetMouseButtonDown(0) && !gettingHit)
+        if (!attacking && !gettingHit && !shouting && !dying)
         {
             if (movingState == State.WALK) {
                 animator.SetBool("Walk", false);
@@ -196,35 +239,17 @@ public class Mutant : MonoBehaviour
                 navMeshAgent.isStopped = true;
                 navMeshAgent.velocity = Vector3.zero;
                 gettingHit = true;
-
-                int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-                if (randomAnimationNumber == 0) {
-                    animator.SetTrigger("Hit Left");
-                } else if (randomAnimationNumber == 1) {
-                    animator.SetTrigger("Hit Right");
-                } else {
-                    animator.SetTrigger("Hit Center");
-                }
+                attacking = false;
+                TriggerRandomAnimation(hitAnimations);
             }
         }
     }
 
-    private void CheckIfDead() {
-        if (Input.GetKeyDown(KeyCode.G)) {
-            movingState = State.DEAD;
-            navMeshAgent.isStopped = true;
-            navMeshAgent.velocity = Vector3.zero;
-            int randomAnimationNumber = UnityEngine.Random.Range(0, 4);
-            if (randomAnimationNumber == 0) {
-                animator.SetTrigger("Dead 1");
-            } else if (randomAnimationNumber == 1) {
-                animator.SetTrigger("Dead 2");
-            } else if (randomAnimationNumber == 2) {
-                animator.SetTrigger("Dead 3");
-            } else {
-                animator.SetTrigger("Dead 4");
-            }
-        }
+    private void TriggerRandomAnimation(string[] animations)
+    {
+        int i = Random.Range(0, animations.Length);
+        string animation = animations[i];
+        animator.SetTrigger(animation);
     }
 
     private bool CheckAttackDistance()
@@ -269,10 +294,9 @@ public class Mutant : MonoBehaviour
         return navHit;
     }
 
-    IEnumerator DeactivationWait()
+    IEnumerator DestroyWait()
     {
         yield return new WaitForSeconds(20);
         Destroy(gameObject);
     }
-
 }

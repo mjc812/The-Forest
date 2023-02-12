@@ -1,7 +1,18 @@
+using UnityEngine;
+
 public class PlayerHealth : Health
 {
-    private void Start()
+    protected override int startingHealth
     {
-        CurrentHealth = 100f;
+        get => 100;
+    }
+
+    protected override bool regenHealth
+    {
+        get => true;
+    }
+
+    protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {
+        Debug.Log("player hit");
     }
 }
