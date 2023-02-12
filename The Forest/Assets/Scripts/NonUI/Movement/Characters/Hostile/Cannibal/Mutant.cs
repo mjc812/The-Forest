@@ -49,7 +49,7 @@ public class Mutant : MonoBehaviour
     private float stopNavMeshAgentDistance = 1.8f;
     private float rotationSpeed = 5f;
 
-    private float attackTime = 2.5f;
+    private float attackTime = 7f;
     private float attackTimeTotal = 2.0f;
 
     private State movingState;

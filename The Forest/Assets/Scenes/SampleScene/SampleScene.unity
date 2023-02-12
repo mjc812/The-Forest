@@ -355,6 +355,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creature_04 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4148193895952366, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -717,6 +721,10 @@ PrefabInstance:
     - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_Name
       value: Creature_04 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4148193895952366, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_RootOrder
@@ -1801,6 +1809,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creature_04 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4148193895952366, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1892,6 +1904,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creature_04 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4148193895952366, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1958,6 +1974,10 @@ PrefabInstance:
     - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_Name
       value: Creature_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4148193895952366, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_RootOrder
