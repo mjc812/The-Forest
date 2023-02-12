@@ -6,37 +6,59 @@ using UnityEngine.Rendering.PostProcessing;
 public class PostProcessing : MonoBehaviour
 {
     private PostProcessVolume postProcessingVolume;
-    private Vignette vignette;
     private Health health;
 
+    private Vignette vignette;
+    private ChromaticAberration chromaticAberration;
+    private ColorGrading colorGrading;
+
+    private bool headingToMax;
     private float transitionSpeed;
     private float timeCount;
-    private bool headingToMax;
     private float currentPercentage;
     private float snapshotPercentage;
+
     private float currentVignetteIntensity;
     private float baseVignetteIntensity;
     private float vignetteIntensityBoost;
+    private float currentAberrationIntensity;
+    private float baseAberrationIntensity;
+    private float aberrationIntensityBoost;
 
     void Awake()
     {
-        baseVignetteIntensity = 0.18f;
-        vignetteIntensityBoost = 0.15f;
-        health = GameObject.FindWithTag("Player").GetComponent<Health>();
-        postProcessingVolume = gameObject.GetComponent<PostProcessVolume>();
-        postProcessingVolume.profile.TryGetSettings(out vignette);
-        currentVignetteIntensity = vignette.intensity.value;
         headingToMax = true;
         snapshotPercentage = 0f;
         currentPercentage = 0f;
         timeCount = 0f;
         transitionSpeed = 0.1f;
+
+        health = GameObject.FindWithTag("Player").GetComponent<Health>();
+        postProcessingVolume = gameObject.GetComponent<PostProcessVolume>();
+        
+        postProcessingVolume.profile.TryGetSettings(out vignette);
+        currentVignetteIntensity = vignette.intensity.value;
+        baseVignetteIntensity = vignette.intensity.value;
+        vignetteIntensityBoost = 0.15f;
+
+        postProcessingVolume.profile.TryGetSettings(out chromaticAberration);
+        currentAberrationIntensity = chromaticAberration.intensity.value;
+        baseAberrationIntensity = chromaticAberration.intensity.value;
+        aberrationIntensityBoost = 0.7f;
+
+        postProcessingVolume.profile.TryGetSettings(out colorGrading);
+        Debug.Log(colorGrading.mixerRedOutRedIn.value);
+        Debug.Log(colorGrading.mixerRedOutGreenIn.value);
+        Debug.Log(colorGrading.mixerRedOutBlueIn.value);
     }
 
     private void Update() {
         // Debug.Log(health.RemainingHealthPercentage());
         if (Input.GetKeyDown(KeyCode.V)) {
             health.SetHealth(health.ReturnHealth() + 20f);
+            colorGrading.mixerRedOutRedIn.value += 100f;
+            colorGrading.mixerRedOutGreenIn.value += 100f;
+            colorGrading.mixerRedOutBlueIn.value += 100f;
         }
 
         float targetPercentage = health.RemainingHealthPercentage();
@@ -68,10 +90,9 @@ public class PostProcessing : MonoBehaviour
             float percentageComplete = timeCount / transitionSpeed;
             timeCount += Time.deltaTime;
             currentPercentage = Mathf.Lerp(snapshotPercentage, targetPercentage, percentageComplete);
-        } else {
-
         }
 
         vignette.intensity.value = baseVignetteIntensity + (vignetteIntensityBoost * currentPercentage);
+        chromaticAberration.intensity.value = baseAberrationIntensity + (aberrationIntensityBoost * currentPercentage);
     }
 }

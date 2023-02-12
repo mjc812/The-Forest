@@ -13,6 +13,6 @@ public class PlayerHealth : Health
     }
 
     protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {
-        Debug.Log("player hit");
+        //Debug.Log("player hit");
     }
 }
