@@ -21,10 +21,6 @@ public class Hand : Limb
 
     private void OnTriggerEnter(Collider other)
     {
-        if (left) {
-            Debug.Log("hit left");
-        } else {
-            Debug.Log("hit right");
-        }
+        hostileScript.DealDamage(15f, central, left, right);
     }
 }

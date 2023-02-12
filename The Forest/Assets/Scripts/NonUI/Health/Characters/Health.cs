@@ -28,4 +28,9 @@ public abstract class Health : MonoBehaviour
     {
         return health <= 0;
     }
+
+    public float ReturnHealth()
+    {
+        return health;
+    }
 }
