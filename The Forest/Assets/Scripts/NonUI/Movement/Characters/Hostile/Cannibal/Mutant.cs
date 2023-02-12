@@ -34,7 +34,7 @@ public class Mutant : MonoBehaviour
     private Health playerHealth;
 
     private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
-    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" }; 
+    private string[] attackAnimations = new string[] { "Attack 1" }; //, "Attack 2", "Attack 5", "Attack 8"  
     private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
     private float walkSpeed = 0.9f;

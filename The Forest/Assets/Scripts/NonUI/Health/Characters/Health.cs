@@ -21,9 +21,36 @@ public abstract class Health : MonoBehaviour
         }
     }
 
-    public void ApplyRegen(float amount)
+    public void ApplyHealth(float amount)
     {
         health += amount;
+    }
+
+    public void SetHealth(float amount)
+    {
+        if (amount < 100f) {
+            health = amount;
+        } else {
+            health = 100f;
+        }
+    }
+
+    public float HealthPercentage() {
+        return health / startingHealth;
+    }
+
+    public float RemainingHealthPercentage() {
+        return 1 - (health / startingHealth);
+    }
+
+    public float ReturnHealth()
+    {
+        return health;
+    }
+
+    public float ReturnRemainingHealth()
+    {
+        return startingHealth - health;
     }
 
     public bool isDead()
@@ -31,8 +58,4 @@ public abstract class Health : MonoBehaviour
         return health <= 0;
     }
 
-    public float ReturnHealth()
-    {
-        return health;
-    }
 }
