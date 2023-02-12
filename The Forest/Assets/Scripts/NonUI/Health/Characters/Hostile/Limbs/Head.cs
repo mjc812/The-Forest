@@ -8,4 +8,9 @@ public class Head : Limb
     {
         get => 1.0f;
     }
+
+    protected override bool isTrigger
+    {
+        get => false;
+    }
 }

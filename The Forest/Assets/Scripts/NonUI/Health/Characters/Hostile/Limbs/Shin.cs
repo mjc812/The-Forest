@@ -8,4 +8,9 @@ public class Shin : Limb
     {
         get => 0.4f;
     }
+
+    protected override bool isTrigger
+    {
+        get => false;
+    }
 }

@@ -18,8 +18,13 @@ public class Mutant : MonoBehaviour
     public GameObject rightUpperArm;
     public GameObject leftLowerArm;
     public GameObject rightLowerArm;
+    public GameObject leftHand;
+    public GameObject rightHand;
     public GameObject leftThigh;
     public GameObject rightThigh;
+
+    public Limb leftHandCollider;
+    public Limb rightHandCollider;
 
     private Animator animator;
     private CannibalHealth cannibalHealth;
@@ -27,7 +32,7 @@ public class Mutant : MonoBehaviour
     private Transform player;
 
     private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
-    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8", "Attack 10" };
+    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" }; 
     private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
     private float walkSpeed = 0.9f;
@@ -38,7 +43,7 @@ public class Mutant : MonoBehaviour
     private float chaseDistance = 15.0f;
     private float chaseSpeed = 3.5f;
 
-    private float attackDistance = 1.6f;
+    private float attackDistance = 1.5f;
     private float stopNavMeshAgentDistance = 1.8f;
     private float rotationSpeed = 5f;
 
@@ -58,7 +63,8 @@ public class Mutant : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         cannibalHealth = GetComponent<CannibalHealth>();
         player = GameObject.FindWithTag("Player").transform;
-
+        leftHandCollider = leftHand.GetComponent<Limb>();
+        rightHandCollider = rightHand.GetComponent<Limb>();
         movingState = State.WALK;
     }
 
@@ -75,7 +81,7 @@ public class Mutant : MonoBehaviour
     void Update()
     {
         CheckIfDead();
-        if (movingState != State.DEAD && !shouting && !gettingHit) {
+        if (movingState != State.DEAD && !shouting && !gettingHit && !dying) {
             switch (movingState)
             {
                 case State.WALK:
@@ -155,6 +161,26 @@ public class Mutant : MonoBehaviour
                 TriggerRandomAnimation(attackAnimations);
             }
         }
+    }
+
+    public void EnableRightHand(string s)
+    {
+        rightHandCollider.EnableTrigger();
+    }
+
+    public void DisableRightHand(string s)
+    {
+        rightHandCollider.DisableTrigger();
+    }
+
+    public void EnableLeftHand(string s)
+    {
+        leftHandCollider.EnableTrigger();
+    }
+
+    public void DisableLeftHand(string s)
+    {
+        leftHandCollider.DisableTrigger();
     }
 
     public void AttackFinished(string s)

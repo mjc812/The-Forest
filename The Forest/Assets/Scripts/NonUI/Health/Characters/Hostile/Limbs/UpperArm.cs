@@ -8,4 +8,9 @@ public class UpperArm : Limb
     {
         get => 0.3f;
     }
+
+    protected override bool isTrigger
+    {
+        get => false;
+    }
 }

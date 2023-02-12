@@ -8,4 +8,9 @@ public class Thigh : Limb
     {
         get => 0.7f;
     }
+
+    protected override bool isTrigger
+    {
+        get => false;
+    }
 }
