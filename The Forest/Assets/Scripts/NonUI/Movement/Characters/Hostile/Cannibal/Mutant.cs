@@ -25,6 +25,7 @@ public class Mutant : MonoBehaviour
 
     public Limb leftHandCollider;
     public Limb rightHandCollider;
+    public Limb headCollider;
 
     private Animator animator;
     private CannibalHealth cannibalHealth;
@@ -65,6 +66,7 @@ public class Mutant : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         leftHandCollider = leftHand.GetComponent<Limb>();
         rightHandCollider = rightHand.GetComponent<Limb>();
+        headCollider = head.GetComponent<Limb>();
         movingState = State.WALK;
     }
 
@@ -165,22 +167,22 @@ public class Mutant : MonoBehaviour
 
     public void EnableRightHand(string s)
     {
-        rightHandCollider.EnableTrigger();
+        rightHandCollider.Enable();
     }
 
     public void DisableRightHand(string s)
     {
-        rightHandCollider.DisableTrigger();
+        rightHandCollider.Disable();
     }
 
     public void EnableLeftHand(string s)
     {
-        leftHandCollider.EnableTrigger();
+        leftHandCollider.Enable();
     }
 
     public void DisableLeftHand(string s)
     {
-        leftHandCollider.DisableTrigger();
+        leftHandCollider.Disable();
     }
 
     public void AttackFinished(string s)
@@ -204,7 +206,7 @@ public class Mutant : MonoBehaviour
 
     public void DeathFinished(string s)
     {
-        StartCoroutine(DeactivationWait());
+        StartCoroutine(DestroyWait());
     }
 
     private void TriggerShout() {
@@ -217,23 +219,17 @@ public class Mutant : MonoBehaviour
     private void CheckIfDead() {
         if (cannibalHealth.isDead() && !dying) {
             dying = true;
+            headCollider.EnableTrigger();
             movingState = State.DEAD;
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
             TriggerRandomAnimation(deathAnimations);
-            head.SetActive(false);
-            leftUpperArm.SetActive(false);
-            rightUpperArm.SetActive(false);
-            leftLowerArm.SetActive(false);
-            rightLowerArm.SetActive(false);
-            leftThigh.SetActive(false);
-            rightThigh.SetActive(false);
         }
     }
 
     public void Hit(float amount, bool isCentral, bool isLeft, bool isRight)
     {
-        if (!attacking && !gettingHit && !shouting)
+        if (!attacking && !gettingHit && !shouting && !dying)
         {
             if (movingState == State.WALK) {
                 animator.SetBool("Walk", false);
@@ -298,10 +294,9 @@ public class Mutant : MonoBehaviour
         return navHit;
     }
 
-    IEnumerator DeactivationWait()
+    IEnumerator DestroyWait()
     {
         yield return new WaitForSeconds(20);
         Destroy(gameObject);
     }
-
 }

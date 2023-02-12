@@ -6,19 +6,25 @@ public abstract class Limb : MonoBehaviour
 {
     public GameObject hostile;
     private Health health;
-    private BoxCollider trigger;
+    private Collider col;
 
     protected abstract float limbMultiplier { get; }
     protected abstract bool isTrigger { get; }
+    protected abstract bool disableOnStart { get; }
     public bool central;
     public bool left;
     public bool right;
 
     private void Start() {
         health = hostile.GetComponent<Health>();
+        col = GetComponent<Collider>();
+        if (disableOnStart) {
+            col.enabled = false;
+        }
         if (isTrigger) {
-            trigger = GetComponent<BoxCollider>();
-            trigger.enabled = false;
+            col.isTrigger = true;
+        } else {
+            col.isTrigger = false;
         }
     }
 
@@ -31,12 +37,20 @@ public abstract class Limb : MonoBehaviour
         return central;
     }
 
+    public void Enable() {
+        col.enabled = true;
+    }
+
+    public void Disable() {
+        col.enabled = false;
+    }
+
     public void EnableTrigger() {
-        trigger.enabled = true;
+        col.isTrigger = true;
     }
 
     public void DisableTrigger() {
-        trigger.enabled = false;
+        col.isTrigger = false;
     }
 
     public bool isLeft() {

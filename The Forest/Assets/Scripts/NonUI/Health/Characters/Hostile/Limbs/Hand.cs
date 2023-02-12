@@ -14,6 +14,11 @@ public class Hand : Limb
         get => true;
     }
 
+    protected override bool disableOnStart
+    {
+        get => true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (left) {

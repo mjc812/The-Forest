@@ -13,4 +13,9 @@ public class Head : Limb
     {
         get => false;
     }
+
+    protected override bool disableOnStart
+    {
+        get => false;
+    }
 }

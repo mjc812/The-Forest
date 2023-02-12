@@ -11,6 +11,11 @@ public class Shin : Limb
 
     protected override bool isTrigger
     {
+        get => true;
+    }
+
+    protected override bool disableOnStart
+    {
         get => false;
     }
 }
