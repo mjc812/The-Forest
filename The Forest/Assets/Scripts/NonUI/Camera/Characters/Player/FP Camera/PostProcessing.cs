@@ -21,9 +21,22 @@ public class PostProcessing : MonoBehaviour
     private float currentVignetteIntensity;
     private float baseVignetteIntensity;
     private float vignetteIntensityBoost;
+
     private float currentAberrationIntensity;
     private float baseAberrationIntensity;
     private float aberrationIntensityBoost;
+
+    private float currentRedOutRedInIntensity;
+    private float baseRedOutRedInIntensity;
+    private float redOutRedInIntensityBoost;
+
+    private float currentGreenOutGreenInIntensity;
+    private float baseGreenOutGreenInIntensity;
+    private float greenOutGreenInIntensityBoost;
+
+    private float currentBlueOutBlueInIntensity;
+    private float baseBlueOutBlueInIntensity;
+    private float blueOutBlueInIntensityBoost;
 
     void Awake()
     {
@@ -47,18 +60,23 @@ public class PostProcessing : MonoBehaviour
         aberrationIntensityBoost = 0.7f;
 
         postProcessingVolume.profile.TryGetSettings(out colorGrading);
-        Debug.Log(colorGrading.mixerRedOutRedIn.value);
-        Debug.Log(colorGrading.mixerRedOutGreenIn.value);
-        Debug.Log(colorGrading.mixerRedOutBlueIn.value);
+        currentRedOutRedInIntensity = colorGrading.mixerRedOutRedIn.value;
+        baseRedOutRedInIntensity = colorGrading.mixerRedOutRedIn.value;
+        redOutRedInIntensityBoost = 100f;
+
+        currentGreenOutGreenInIntensity = colorGrading.mixerGreenOutGreenIn.value;
+        baseGreenOutGreenInIntensity = colorGrading.mixerGreenOutGreenIn.value;
+        greenOutGreenInIntensityBoost = -100f;
+
+        currentBlueOutBlueInIntensity = colorGrading.mixerBlueOutBlueIn.value;
+        baseBlueOutBlueInIntensity = colorGrading.mixerBlueOutBlueIn.value;
+        blueOutBlueInIntensityBoost = -100f;
     }
 
     private void Update() {
         // Debug.Log(health.RemainingHealthPercentage());
         if (Input.GetKeyDown(KeyCode.V)) {
             health.SetHealth(health.ReturnHealth() + 20f);
-            colorGrading.mixerRedOutRedIn.value += 100f;
-            colorGrading.mixerRedOutGreenIn.value += 100f;
-            colorGrading.mixerRedOutBlueIn.value += 100f;
         }
 
         float targetPercentage = health.RemainingHealthPercentage();
@@ -94,5 +112,8 @@ public class PostProcessing : MonoBehaviour
 
         vignette.intensity.value = baseVignetteIntensity + (vignetteIntensityBoost * currentPercentage);
         chromaticAberration.intensity.value = baseAberrationIntensity + (aberrationIntensityBoost * currentPercentage);
+        colorGrading.mixerRedOutRedIn.value = baseRedOutRedInIntensity + (redOutRedInIntensityBoost * currentPercentage);
+        colorGrading.mixerGreenOutGreenIn.value = baseGreenOutGreenInIntensity + (greenOutGreenInIntensityBoost * currentPercentage);
+        colorGrading.mixerBlueOutBlueIn.value = baseBlueOutBlueInIntensity + (blueOutBlueInIntensityBoost * currentPercentage);
     }
 }
