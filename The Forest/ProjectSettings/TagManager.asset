@@ -18,6 +18,7 @@ TagManager:
   - FPCamera
   - Inventory
   - Character
+  - PostProcessing
   layers:
   - Default
   - TransparentFX

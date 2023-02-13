@@ -31,9 +31,10 @@ public class Mutant : MonoBehaviour
     private CannibalHealth cannibalHealth;
     private NavMeshAgent navMeshAgent;
     private Transform player;
+    private Health playerHealth;
 
     private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
-    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" }; 
+    private string[] attackAnimations = new string[] { "Attack 1" }; //, "Attack 2", "Attack 5", "Attack 8"  
     private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
     private float walkSpeed = 0.9f;
@@ -48,7 +49,7 @@ public class Mutant : MonoBehaviour
     private float stopNavMeshAgentDistance = 1.8f;
     private float rotationSpeed = 5f;
 
-    private float attackTime = 2.5f;
+    private float attackTime = 2f;
     private float attackTimeTotal = 2.0f;
 
     private State movingState;
@@ -64,6 +65,7 @@ public class Mutant : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         cannibalHealth = GetComponent<CannibalHealth>();
         player = GameObject.FindWithTag("Player").transform;
+        playerHealth = player.gameObject.GetComponent<Health>();
         leftHandCollider = leftHand.GetComponent<Limb>();
         rightHandCollider = rightHand.GetComponent<Limb>();
         headCollider = head.GetComponent<Limb>();
@@ -207,6 +209,11 @@ public class Mutant : MonoBehaviour
     public void DeathFinished(string s)
     {
         StartCoroutine(DestroyWait());
+    }
+
+    public void DealDamage(float amount, bool isCentral, bool isLeft, bool isRight)
+    {
+        playerHealth.ApplyDamage(amount, isCentral, isLeft, isRight);
     }
 
     private void TriggerShout() {

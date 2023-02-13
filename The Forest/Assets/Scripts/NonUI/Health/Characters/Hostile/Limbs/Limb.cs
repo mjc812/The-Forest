@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Limb : MonoBehaviour
 {
     public GameObject hostile;
+    public Mutant hostileScript;
     private Health health;
     private Collider col;
 
@@ -17,6 +18,7 @@ public abstract class Limb : MonoBehaviour
 
     private void Start() {
         health = hostile.GetComponent<Health>();
+        hostileScript = hostile.GetComponent<Mutant>();
         col = GetComponent<Collider>();
         if (disableOnStart) {
             col.enabled = false;

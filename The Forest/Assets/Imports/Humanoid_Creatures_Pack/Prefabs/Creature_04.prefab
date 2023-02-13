@@ -199,6 +199,7 @@ MonoBehaviour:
   rightThigh: {fileID: 1364578335482330}
   leftHandCollider: {fileID: 0}
   rightHandCollider: {fileID: 0}
+  headCollider: {fileID: 0}
 --- !u!114 &1162514614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 1
   right: 0
@@ -461,6 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 1
   left: 0
   right: 0
@@ -591,6 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 1
   right: 0
@@ -983,6 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 0
   right: 1
@@ -1082,6 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 0
   right: 1
@@ -1242,6 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 1
   right: 0
@@ -1814,6 +1821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 0
   right: 1
@@ -2068,6 +2076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 1
   right: 0
@@ -2227,6 +2236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostile: {fileID: 1124609711639834}
+  hostileScript: {fileID: 0}
   central: 0
   left: 0
   right: 1
