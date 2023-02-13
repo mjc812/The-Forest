@@ -12,6 +12,10 @@ public class PlayerHealth : Health
         get => true;
     }
 
+    protected override void Start() {
+        base.Start();
+    }
+    
     protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {
         //Debug.Log("player hit");
     }

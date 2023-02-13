@@ -86,11 +86,6 @@ public class PostProcessing : MonoBehaviour
     }
 
     private void Update() {
-        // Debug.Log(health.RemainingHealthPercentage());
-        if (Input.GetKeyDown(KeyCode.V)) {
-            health.SetHealth(100f); //health.ReturnHealth() + 
-        }
-
         float targetPercentage = health.RemainingHealthPercentage();
 
         if (currentPercentage > targetPercentage) {

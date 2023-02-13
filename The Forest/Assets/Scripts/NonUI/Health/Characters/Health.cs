@@ -8,7 +8,7 @@ public abstract class Health : MonoBehaviour
     protected float health;
 
     protected virtual void Start() {
-        health = startingHealth;        
+        health = startingHealth;
     }
 
     protected abstract void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight);
