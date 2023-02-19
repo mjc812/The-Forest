@@ -5,6 +5,7 @@ using UnityEngine;
 public class AimSystem : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private PlayerSprint playerSprint;
     private WeaponHolderController weaponHolder;
     private GameObject crosshair;
     private Weapon weapon;
@@ -25,6 +26,7 @@ public class AimSystem : MonoBehaviour
         crosshair = GameObject.FindWithTag("Crosshair");
         weaponHolder = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderController>();
         playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+        playerSprint = GameObject.FindWithTag("Player").GetComponent<PlayerSprint>();
 
         positionalTuck = new Vector3(0.23f, -0.1f, 0.1f);
         positionalRest = new Vector3(0f, 0f, 0f);
@@ -45,7 +47,7 @@ public class AimSystem : MonoBehaviour
                 positionalSnapshot = transform.localPosition;
                 rotationalSnapshot = transform.localRotation;
                 timeCount = 0.0f;
-            } else if (Input.GetMouseButton(1)) {
+            } else if (Input.GetMouseButton(1) && !playerSprint.isPlayerSprinting()) {
                 crosshair.SetActive(false);
                 if (!tucking) {
                     positionalSnapshot = transform.localPosition;

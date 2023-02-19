@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponHolderRecoil : MonoBehaviour
 {
+    private PlayerSprint playerSprint;
+
     private Vector3 targetPosition;
     private Vector3 currentPosition;
 
@@ -20,11 +22,12 @@ public class WeaponHolderRecoil : MonoBehaviour
     void Start() {
         currentPosition = transform.localPosition;
         targetPosition = currentPosition;
+        playerSprint = GameObject.FindWithTag("Player").GetComponent<PlayerSprint>();
     }
 
     void Update()
     {
-        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
+        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0) && !playerSprint.isPlayerSprinting()) {
             addRecoil();
         }
 
