@@ -709,14 +709,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8459934687159231335, guid: 930c2cf00d792e54fb886c57ff9b9dd2, type: 3}
-      propertyPath: shakeParams.positionStrength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8459934687159231335, guid: 930c2cf00d792e54fb886c57ff9b9dd2, type: 3}
-      propertyPath: shakeParams.rotationStrength
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 930c2cf00d792e54fb886c57ff9b9dd2, type: 3}
 --- !u!1001 &1035468979
@@ -2227,6 +2219,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 134352574}
     m_Modifications:
+    - target: {fileID: 1459062928485004909, guid: 1f2f3cbc87cb66f469538bc4eaa41983, type: 3}
+      propertyPath: leftShakeParams.releaseTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459062928485004909, guid: 1f2f3cbc87cb66f469538bc4eaa41983, type: 3}
+      propertyPath: rightShakeParams.releaseTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459062928485004909, guid: 1f2f3cbc87cb66f469538bc4eaa41983, type: 3}
+      propertyPath: leftShakeParams.strength.position.x
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459062928485004909, guid: 1f2f3cbc87cb66f469538bc4eaa41983, type: 3}
+      propertyPath: rightShakeParams.strength.position.x
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2255377229922816265, guid: 1f2f3cbc87cb66f469538bc4eaa41983, type: 3}
       propertyPath: m_Name
       value: Player

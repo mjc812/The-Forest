@@ -1,7 +1,11 @@
 using UnityEngine;
+using CameraShake;
 
 public class PlayerHealth : Health
 {
+    public KickShake.Params leftShakeParams;
+    public KickShake.Params rightShakeParams;
+
     protected override int startingHealth
     {
         get => 100;
@@ -17,6 +21,11 @@ public class PlayerHealth : Health
     }
     
     protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {
-        //Debug.Log("player hit");
+        Vector3 sourcePosition = transform.position;
+        if (isLeft) {
+            CameraShaker.Shake(new KickShake(leftShakeParams, new CameraShake.Displacement(sourcePosition)));
+        } else {
+            CameraShaker.Shake(new KickShake(rightShakeParams, new CameraShake.Displacement(sourcePosition)));
+        }
     }
 }

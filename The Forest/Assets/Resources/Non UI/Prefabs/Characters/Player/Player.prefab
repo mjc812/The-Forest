@@ -858,6 +858,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0b1e547182b4323bfcf0b156bd650b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkingShakeParams:
+    positionStrength: 0
+    rotationStrength: 0.2
+    axesMultiplier:
+      position: {x: 1, y: 1, z: 0}
+      eulerAngles: {x: 1, y: 1, z: 1}
+    freq: 25
+    numBounces: 2
+    randomness: 0.5
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 50
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
+  sprintingShakeParams:
+    positionStrength: 0
+    rotationStrength: 0.35
+    axesMultiplier:
+      position: {x: 1, y: 1, z: 0}
+      eulerAngles: {x: 1, y: 1, z: 1}
+    freq: 35
+    numBounces: 3
+    randomness: 0.5
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 25
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
   forwardStepAudioClip:
   - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
   forwardSprintStepAudioClip:
@@ -878,6 +906,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce992a279e1a14afc9ee359eff33294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftShakeParams:
+    strength:
+      position: {x: -0.3, y: -1, z: -0.05}
+      eulerAngles: {x: 0, y: 0, z: 0}
+    attackTime: 0.05
+    attackCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    releaseTime: 0.05
+    releaseCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 50
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
+  rightShakeParams:
+    strength:
+      position: {x: 0.3, y: -1, z: -0.05}
+      eulerAngles: {x: 0, y: 0, z: 0}
+    attackTime: 0.05
+    attackCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    releaseTime: 0.05
+    releaseCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 50
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
 --- !u!114 &1459062928485004910
 MonoBehaviour:
   m_ObjectHideFlags: 0
