@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CameraShake;
 
 public class Enfield : SingleFire
 {
-    //public BounceShake.Params shakeParams;
-
     public override int ID
     {
         get => 5;
