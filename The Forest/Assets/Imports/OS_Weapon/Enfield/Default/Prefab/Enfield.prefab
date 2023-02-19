@@ -15166,6 +15166,20 @@ MonoBehaviour:
   - {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 3}
   fire: {fileID: 8300000, guid: cc0ec85d280084b36885a56c13738bb5, type: 3}
   shakeParams:
+    positionStrength: 0.2
+    rotationStrength: 0.7
+    axesMultiplier:
+      position: {x: 1, y: 1, z: 0}
+      eulerAngles: {x: 1, y: 1, z: 1}
+    freq: 50
+    numBounces: 5
+    randomness: 0.5
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 50
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
+  enfieldShakeParams:
     positionStrength: 0.05
     rotationStrength: 0.1
     axesMultiplier:

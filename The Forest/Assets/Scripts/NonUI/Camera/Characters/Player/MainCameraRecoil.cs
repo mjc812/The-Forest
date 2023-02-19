@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MainCameraRecoil : MonoBehaviour
 {
+    private PlayerSprint playerSprint;
+
     private Vector3 targetRotation;
     private Vector3 currentRotation;
 
     private float xRecoil = -10f;
-    private float yRecoil = 4f;
-    private float zRecoil = 2f;
+    private float yRecoil = 2f;
+    private float zRecoil = 0.2f;
 
     private float recoilSpeed = 0.25f;
     private float returnSpeed = 25f;
@@ -19,9 +21,13 @@ public class MainCameraRecoil : MonoBehaviour
     private float timeElapsedSinceRecoil = 0f;
     private float timeElapsedSinceRecoilEnd = 0f;
 
+    void Start() {
+        playerSprint = GameObject.FindWithTag("Player").GetComponent<PlayerSprint>();
+    }
+
     void Update()
     {
-        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0)) {
+        if (weaponHeld && weaponHeld.IsReadyForUse() && Input.GetMouseButtonDown(0) && !playerSprint.isPlayerSprinting()) {
             addRecoil();
             movingToTarget = true;
         } else if (movingToTarget && (currentRotation != targetRotation)) {

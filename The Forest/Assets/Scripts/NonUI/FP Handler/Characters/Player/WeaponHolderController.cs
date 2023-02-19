@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WeaponHolderController : MonoBehaviour
 {
+    private PlayerSprint playerSprint;
     private Weapon item = null;
     private MainCameraRecoil mainCameraRecoil;
     private WeaponHolderRecoil weaponHolderRecoil;
@@ -21,11 +22,12 @@ public class WeaponHolderController : MonoBehaviour
         swingHandler = twistHandler.gameObject.transform.GetChild(0);
         mainCameraRecoil = GameObject.FindWithTag("MainCamera").GetComponent<MainCameraRecoil>();
         weaponHolderRecoil = GameObject.FindWithTag("WeaponHolder").GetComponent<WeaponHolderRecoil>();
+        playerSprint = GameObject.FindWithTag("Player").GetComponent<PlayerSprint>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !playerSprint.isPlayerSprinting())
         {
             UseItem();
         }
