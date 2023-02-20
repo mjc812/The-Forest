@@ -32,6 +32,7 @@ public class Mutant : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Transform player;
     private Health playerHealth;
+    private AudioSource audioSource;
 
     private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
     private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" };
@@ -62,6 +63,7 @@ public class Mutant : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         cannibalHealth = GetComponent<CannibalHealth>();
         player = GameObject.FindWithTag("Player").transform;
@@ -105,7 +107,7 @@ public class Mutant : MonoBehaviour
                 }
             }
         } else if (shouting) {
-            RotateTowardsPlayer();   
+            RotateTowardsPlayer();
         }
     }
 
