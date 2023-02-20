@@ -29,7 +29,7 @@ public class FOV : MonoBehaviour
         timeCount = 0f;
 
         baseFOV = Camera.main.fieldOfView;
-        fovBoost = 15f;
+        fovBoost = 8f;
         
         currentPercentage = 0f;
         snapshotPercentage = 0f;

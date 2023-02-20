@@ -9,10 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 direction;
 
-    private float positiveYSpeed = 3f;
-    private float sprintPositiveYSpeed = 7f;
-    private float negativeYSpeed = 3f;
-    private float XSpeed = 2f;
+    public float positiveYSpeed = 3f;
+    public float sprintPositiveYSpeed = 6f;
+    public float negativeYSpeed = 3f;
+    public float XSpeed = 2f;
     private float gravity = 20f;
     private float jumpForce = 6f;
     private float verticalForce = 0;

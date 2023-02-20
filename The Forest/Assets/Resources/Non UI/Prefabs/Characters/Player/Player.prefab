@@ -671,6 +671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c5170a5fc8669448767fc4ed7329aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positiveYSpeed: 2
+  sprintPositiveYSpeed: 4.5
+  negativeYSpeed: 1.5
+  XSpeed: 2
 --- !u!114 &3548895201740733035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,13 +766,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a62172e6f7275ff4f94c17edc8dfdd0d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.17
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 165
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -860,13 +864,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingShakeParams:
     positionStrength: 0
-    rotationStrength: 0.2
+    rotationStrength: 0.1
     axesMultiplier:
       position: {x: 1, y: 1, z: 0}
-      eulerAngles: {x: 1, y: 1, z: 1}
-    freq: 25
-    numBounces: 2
-    randomness: 0.5
+      eulerAngles: {x: 0.5, y: 0.5, z: 0}
+    freq: 15
+    numBounces: 3
+    randomness: 1
     attenuation:
       clippingDistance: 10
       falloffScale: 50
@@ -877,10 +881,10 @@ MonoBehaviour:
     rotationStrength: 0.35
     axesMultiplier:
       position: {x: 1, y: 1, z: 0}
-      eulerAngles: {x: 1, y: 1, z: 1}
-    freq: 35
-    numBounces: 3
-    randomness: 0.5
+      eulerAngles: {x: 1, y: 0.5, z: 0}
+    freq: 15
+    numBounces: 4
+    randomness: 1
     attenuation:
       clippingDistance: 10
       falloffScale: 25
