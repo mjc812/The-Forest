@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CameraShake;
 
 public class PlayerMovementSounds : MonoBehaviour
 {
     private AudioSource audioSource;
     private PlayerMovement playerMovement;
+
+    public BounceShake.Params walkingShakeParams;
+    public BounceShake.Params sprintingShakeParams;
+    private Vector3 sourcePosition;
 
     public AudioClip[] forwardStepAudioClip;
     public AudioClip[] forwardSprintStepAudioClip;
@@ -55,6 +60,8 @@ public class PlayerMovementSounds : MonoBehaviour
                 audioSource.clip = horizontalStepAudioClip[Random.Range(0, horizontalStepAudioClip.Length)];
                 audioSource.pitch = horizontalStepAudioPitch;
                 audioSource.Play();
+                sourcePosition = transform.position;
+                CameraShaker.Shake(new BounceShake(walkingShakeParams, sourcePosition));
             }
             horizontalbackwardStepTimeTotal += Time.deltaTime;
         }
@@ -72,6 +79,8 @@ public class PlayerMovementSounds : MonoBehaviour
                         audioSource.clip = forwardSprintStepAudioClip[Random.Range(0, forwardSprintStepAudioClip.Length)];
                         audioSource.pitch = forwardSprintStepAudioPitch;
                         audioSource.Play();
+                        sourcePosition = transform.position;
+                        CameraShaker.Shake(new BounceShake(sprintingShakeParams, sourcePosition));
                     }
                     forwardSprintStepTimeTotal += Time.deltaTime;
                 } else {
@@ -80,6 +89,8 @@ public class PlayerMovementSounds : MonoBehaviour
                         audioSource.clip = forwardStepAudioClip[Random.Range(0, forwardStepAudioClip.Length)];
                         audioSource.pitch = forwardStepAudioPitch;
                         audioSource.Play();
+                        sourcePosition = transform.position;
+                        CameraShaker.Shake(new BounceShake(walkingShakeParams, sourcePosition));
                     }
                     forwardStepTimeTotal += Time.deltaTime;
                 }
@@ -93,6 +104,8 @@ public class PlayerMovementSounds : MonoBehaviour
                     audioSource.clip = backwardStepAudioClip[Random.Range(0, backwardStepAudioClip.Length)];
                     audioSource.pitch = backwardStepAudioPitch;
                     audioSource.Play();
+                    sourcePosition = transform.position;
+                    CameraShaker.Shake(new BounceShake(walkingShakeParams, sourcePosition));
                 }
                 backwardStepTimeTotal += Time.deltaTime;
             }
