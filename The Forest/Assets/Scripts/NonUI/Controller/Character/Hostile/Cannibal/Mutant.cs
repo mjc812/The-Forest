@@ -38,6 +38,15 @@ public class Mutant : MonoBehaviour
     private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" };
     private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
+    public AudioClip[] shoutAudioClips;
+    public AudioClip[] chaseAudioClips;
+    public AudioClip[] attackAudioClips;
+    public AudioClip[] hitAudioClips;
+    public AudioClip[] deadAudioClips;
+
+    private float audioClipTime = 2f;
+    private float audioClipTimeTotal = 2f;
+
     private float walkSpeed = 0.9f;
     private float maxWalkTime = 20.0f;
     private float totalWalkTime = 0.0f;
@@ -144,8 +153,14 @@ public class Mutant : MonoBehaviour
 
         if (CheckAttackDistance())
         {
+            audioClipTimeTotal = 0f;
             animator.SetBool("Run", false);
             movingState = State.ATTACK;
+        } else {
+            if (audioClipTimeTotal >= audioClipTime) {
+                PlayRandomAudioClip(chaseAudioClips);
+                audioClipTimeTotal = 0f;
+            }
         }
     }
 
@@ -221,6 +236,7 @@ public class Mutant : MonoBehaviour
     private void TriggerShout() {
         shouting = true;
         animator.SetTrigger("Shout 2");
+        PlayRandomAudioClip(shoutAudioClips);
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
     }
@@ -240,6 +256,7 @@ public class Mutant : MonoBehaviour
     {
         if (!attacking && !gettingHit && !shouting && !dying)
         {
+            audioClipTimeTotal = 0f;
             if (movingState == State.WALK) {
                 animator.SetBool("Walk", false);
                 TriggerShout();
@@ -307,5 +324,13 @@ public class Mutant : MonoBehaviour
     {
         yield return new WaitForSeconds(20);
         Destroy(gameObject);
+    }
+
+    private void PlayRandomAudioClip(AudioClip[] clips) {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = clips[Random.Range(0, clips.Length)];
+            audioSource.Play();
+        }
     }
 }
