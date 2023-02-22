@@ -150,6 +150,7 @@ public class Mutant : MonoBehaviour
         navMeshAgent.speed = chaseSpeed;
         RotateTowardsPlayer();
         animator.SetBool("Run", true);
+        audioClipTimeTotal += Time.deltaTime;
 
         if (CheckAttackDistance())
         {
@@ -158,7 +159,7 @@ public class Mutant : MonoBehaviour
             movingState = State.ATTACK;
         } else {
             if (audioClipTimeTotal >= audioClipTime) {
-                PlayRandomAudioClip(chaseAudioClips);
+                PlayRandomAudioClip(chaseAudioClips, false);
                 audioClipTimeTotal = 0f;
             }
         }
@@ -236,7 +237,7 @@ public class Mutant : MonoBehaviour
     private void TriggerShout() {
         shouting = true;
         animator.SetTrigger("Shout 2");
-        PlayRandomAudioClip(shoutAudioClips);
+        PlayRandomAudioClip(shoutAudioClips, true);
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
     }
@@ -326,8 +327,8 @@ public class Mutant : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlayRandomAudioClip(AudioClip[] clips) {
-        if (!audioSource.isPlaying)
+    private void PlayRandomAudioClip(AudioClip[] clips, bool interrupt) {
+        if (!audioSource.isPlaying || interrupt)
         {
             audioSource.clip = clips[Random.Range(0, clips.Length)];
             audioSource.Play();
