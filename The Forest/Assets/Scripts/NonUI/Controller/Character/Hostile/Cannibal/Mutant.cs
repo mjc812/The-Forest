@@ -44,8 +44,8 @@ public class Mutant : MonoBehaviour
     public AudioClip[] hitAudioClips;
     public AudioClip[] deadAudioClips;
 
-    private float audioClipTime = 2f;
-    private float audioClipTimeTotal = 2f;
+    private float audioClipTime = 1.5f;
+    private float audioClipTimeTotal = 1.5f;
 
     private float walkSpeed = 0.9f;
     private float maxWalkTime = 20.0f;
@@ -154,7 +154,7 @@ public class Mutant : MonoBehaviour
 
         if (CheckAttackDistance())
         {
-            audioClipTimeTotal = 0f;
+            audioClipTimeTotal = 1.5f;
             animator.SetBool("Run", false);
             movingState = State.ATTACK;
         } else {
@@ -257,7 +257,7 @@ public class Mutant : MonoBehaviour
     {
         if (!attacking && !gettingHit && !shouting && !dying)
         {
-            audioClipTimeTotal = 0f;
+            audioClipTimeTotal = 1.5f;
             if (movingState == State.WALK) {
                 animator.SetBool("Walk", false);
                 TriggerShout();

@@ -202,16 +202,18 @@ MonoBehaviour:
   rightHandCollider: {fileID: 0}
   headCollider: {fileID: 0}
   shoutAudioClips:
-  - {fileID: 8300000, guid: 143bba8bab31345cdaa0e627724b6581, type: 3}
+  - {fileID: 8300000, guid: 4d0ae012632a5433ab7743224bbdb755, type: 3}
   chaseAudioClips:
-  - {fileID: 8300000, guid: ce3e0b85a181a40cebc53ecfead4e943, type: 3}
-  attackAudioClips: []
+  - {fileID: 8300000, guid: 00626b19c249a4b70882feaae7bc6012, type: 3}
+  - {fileID: 8300000, guid: e2d4f256cd0774989b6ed5da0dcc2f7d, type: 3}
+  - {fileID: 8300000, guid: 96d0256975f87442b9c426fe1658ad58, type: 3}
+  - {fileID: 8300000, guid: 4a25abad95d7e47a6b5b0b1a4f608d7e, type: 3}
+  attackAudioClips:
+  - {fileID: 8300000, guid: 4d7893200af8341b58daf65cd29b8557, type: 3}
   hitAudioClips:
-  - {fileID: 8300000, guid: bdb798b20d5ac2f438f3a562f4150019, type: 3}
-  - {fileID: 8300000, guid: 4fb45f9472f5e554c82a5a9c7ba4c739, type: 3}
-  - {fileID: 8300000, guid: 5cd921b91deac4f47b05c451951f7a53, type: 3}
+  - {fileID: 8300000, guid: 4d7893200af8341b58daf65cd29b8557, type: 3}
   deadAudioClips:
-  - {fileID: 8300000, guid: 1225b0f997026d64fa600c3fd93f1a74, type: 3}
+  - {fileID: 8300000, guid: c22e6aadf861047788ffbbaceaf62834, type: 3}
 --- !u!114 &1162514614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +238,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1.5
   Loop: 0
   Mute: 0
