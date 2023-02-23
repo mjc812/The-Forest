@@ -44,8 +44,8 @@ public class Mutant : MonoBehaviour
     public AudioClip[] hitAudioClips;
     public AudioClip[] deadAudioClips;
 
-    private float audioClipTime = 1.5f;
-    private float audioClipTimeTotal = 1.5f;
+    private float audioClipTime = 3f;
+    private float audioClipTimeTotal = 3f;
 
     private float walkSpeed = 0.9f;
     private float maxWalkTime = 20.0f;
@@ -60,7 +60,7 @@ public class Mutant : MonoBehaviour
     private float rotationSpeed = 5f;
 
     private float attackTime = 2f;
-    private float attackTimeTotal = 2.0f;
+    private float attackTimeTotal = 2f;
 
     private State movingState;
 
@@ -154,7 +154,7 @@ public class Mutant : MonoBehaviour
 
         if (CheckAttackDistance())
         {
-            audioClipTimeTotal = 1.5f;
+            audioClipTimeTotal = audioClipTime;
             animator.SetBool("Run", false);
             movingState = State.ATTACK;
         } else {
@@ -169,6 +169,7 @@ public class Mutant : MonoBehaviour
     {
         navMeshAgent.isStopped = true;
         navMeshAgent.velocity = Vector3.zero;
+        PlayRandomAudioClip(attackAudioClips, false);
 
         if (!CheckAttackDistance() && !attacking)
         {
@@ -244,6 +245,7 @@ public class Mutant : MonoBehaviour
 
     private void CheckIfDead() {
         if (cannibalHealth.isDead() && !dying) {
+            PlayRandomAudioClip(deadAudioClips, true);
             dying = true;
             headCollider.EnableTrigger();
             movingState = State.DEAD;
@@ -263,6 +265,7 @@ public class Mutant : MonoBehaviour
                 TriggerShout();
                 movingState = State.CHASE;
             } else {
+                PlayRandomAudioClip(hitAudioClips, false);
                 navMeshAgent.isStopped = true;
                 navMeshAgent.velocity = Vector3.zero;
                 gettingHit = true;

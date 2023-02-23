@@ -209,9 +209,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 96d0256975f87442b9c426fe1658ad58, type: 3}
   - {fileID: 8300000, guid: 4a25abad95d7e47a6b5b0b1a4f608d7e, type: 3}
   attackAudioClips:
-  - {fileID: 8300000, guid: 4d7893200af8341b58daf65cd29b8557, type: 3}
+  - {fileID: 8300000, guid: d84cf6a08b07c45d6a83424b5ac1c001, type: 3}
+  - {fileID: 8300000, guid: 00626b19c249a4b70882feaae7bc6012, type: 3}
+  - {fileID: 8300000, guid: e2d4f256cd0774989b6ed5da0dcc2f7d, type: 3}
+  - {fileID: 8300000, guid: 96d0256975f87442b9c426fe1658ad58, type: 3}
+  - {fileID: 8300000, guid: 4a25abad95d7e47a6b5b0b1a4f608d7e, type: 3}
   hitAudioClips:
-  - {fileID: 8300000, guid: 4d7893200af8341b58daf65cd29b8557, type: 3}
+  - {fileID: 8300000, guid: d84cf6a08b07c45d6a83424b5ac1c001, type: 3}
   deadAudioClips:
   - {fileID: 8300000, guid: c22e6aadf861047788ffbbaceaf62834, type: 3}
 --- !u!114 &1162514614

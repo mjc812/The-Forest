@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 299078926}
     m_Modifications:
-    - target: {fileID: 160193583, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
-      propertyPath: attackAudioClips.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 160193583, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
-      propertyPath: attackAudioClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: b4e102f60e1ce49e5a62680ff9d56ea8, type: 3}
     - target: {fileID: 1124609711639834, guid: 5f0e640f434e7b240be34f48342cbeea, type: 3}
       propertyPath: m_Name
       value: Creature_04
