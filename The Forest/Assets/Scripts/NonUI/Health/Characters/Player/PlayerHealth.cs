@@ -3,6 +3,9 @@ using CameraShake;
 
 public class PlayerHealth : Health
 {
+    private AudioSource audioSource; 
+
+    public AudioClip[] audioClips;
     public KickShake.Params leftShakeParams;
     public KickShake.Params rightShakeParams;
 
@@ -18,6 +21,7 @@ public class PlayerHealth : Health
 
     protected override void Start() {
         base.Start();
+        audioSource = GetComponent<AudioSource>();
     }
     
     protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {

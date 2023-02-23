@@ -764,9 +764,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a62172e6f7275ff4f94c17edc8dfdd0d, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.81
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -891,9 +891,13 @@ MonoBehaviour:
       falloffDegree: 1
       axesMultiplier: {x: 1, y: 1, z: 1}
   forwardStepAudioClip:
-  - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
+  - {fileID: 8300000, guid: 9cd93e6b4948e0c4abc089546af87c38, type: 3}
+  - {fileID: 8300000, guid: 96860d4e7cdc1f746906da7b7bc7a388, type: 3}
+  - {fileID: 8300000, guid: 97b97fae0b55ce141bff2005c510492e, type: 3}
   forwardSprintStepAudioClip:
-  - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
+  - {fileID: 8300000, guid: 9cd93e6b4948e0c4abc089546af87c38, type: 3}
+  - {fileID: 8300000, guid: 97b97fae0b55ce141bff2005c510492e, type: 3}
+  - {fileID: 8300000, guid: 96860d4e7cdc1f746906da7b7bc7a388, type: 3}
   backwardStepAudioClip:
   - {fileID: 8300000, guid: 55a810a67df804d4487e8f990523255b, type: 3}
   horizontalStepAudioClip:
@@ -910,10 +914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce992a279e1a14afc9ee359eff33294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: b53ff5ba863764f3ea6c0c9f59afcae1, type: 3}
   leftShakeParams:
     strength:
       position: {x: -0.3, y: -1, z: -0.05}
-      eulerAngles: {x: 0, y: 0, z: 0}
+      eulerAngles: {x: 0, y: 0, z: -0.05}
     attackTime: 0.05
     attackCurve:
       serializedVersion: 2
@@ -939,7 +945,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    releaseTime: 0.05
+    releaseTime: 0.04
     releaseCurve:
       serializedVersion: 2
       m_Curve:
@@ -972,7 +978,7 @@ MonoBehaviour:
   rightShakeParams:
     strength:
       position: {x: 0.3, y: -1, z: -0.05}
-      eulerAngles: {x: 0, y: 0, z: 0}
+      eulerAngles: {x: 0, y: 0, z: -0.05}
     attackTime: 0.05
     attackCurve:
       serializedVersion: 2
@@ -998,7 +1004,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    releaseTime: 0.05
+    releaseTime: 0.04
     releaseCurve:
       serializedVersion: 2
       m_Curve:
