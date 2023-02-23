@@ -914,8 +914,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce992a279e1a14afc9ee359eff33294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  a: 0.7
+  b: 0.3
   audioClips:
-  - {fileID: 8300000, guid: b53ff5ba863764f3ea6c0c9f59afcae1, type: 3}
+  - {fileID: 8300000, guid: 39c2e158fc3a8433e8cf0fb897daa058, type: 3}
   leftShakeParams:
     strength:
       position: {x: -0.3, y: -1, z: -0.05}
