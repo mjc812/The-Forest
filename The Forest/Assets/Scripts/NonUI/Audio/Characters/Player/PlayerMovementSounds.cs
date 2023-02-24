@@ -14,6 +14,9 @@ public class PlayerMovementSounds : MonoBehaviour
 
     public AudioClip[] forwardStepAudioClip;
     public AudioClip[] forwardSprintStepAudioClip;
+    public AudioClip leftFootStep;
+    public AudioClip rightFootStep;
+    private AudioClip footStepToPlay; 
     public AudioClip[] backwardStepAudioClip;
     public AudioClip[] horizontalStepAudioClip;
 
@@ -37,6 +40,7 @@ public class PlayerMovementSounds : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         audioSource = transform.GetComponent<AudioSource>();
+        footStepToPlay = leftFootStep;
     }
 
     void Update()
@@ -76,8 +80,14 @@ public class PlayerMovementSounds : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift)) {
                     if (forwardSprintStepTimeTotal > forwardSprintStepTime) {
                         forwardSprintStepTimeTotal = 0f;
-                        audioSource.clip = forwardSprintStepAudioClip[Random.Range(0, forwardSprintStepAudioClip.Length)];
                         audioSource.pitch = forwardSprintStepAudioPitch;
+                        if (footStepToPlay == leftFootStep) {
+                            audioSource.clip = leftFootStep;
+                            footStepToPlay = rightFootStep;
+                        } else {
+                            audioSource.clip = rightFootStep;
+                            footStepToPlay = leftFootStep;
+                        }
                         audioSource.Play();
                         sourcePosition = transform.position;
                         CameraShaker.Shake(new BounceShake(sprintingShakeParams, sourcePosition));
