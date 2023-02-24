@@ -22,4 +22,9 @@ public class CannibalHealth : Health
     protected override void DamageEffects(float amount, bool isCentral, bool isLeft, bool isRight) {
         mutant.Hit(amount, isCentral, isLeft, isRight);
     }
+
+    public override void ApplyHealth(float amount)
+    {
+        health += amount;
+    }
 }

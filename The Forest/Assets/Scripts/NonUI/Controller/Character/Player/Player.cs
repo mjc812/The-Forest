@@ -16,5 +16,9 @@ public class Player : MonoBehaviour
         if (health.isDead()) {
             Debug.Log("Player is dead");
         }
+
+        if (Input.GetKeyUp(KeyCode.T)) {
+            health.ApplyHealth(100);
+        }
     }
 }
