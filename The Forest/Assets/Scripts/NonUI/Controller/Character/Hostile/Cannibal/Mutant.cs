@@ -27,7 +27,11 @@ public class Mutant : MonoBehaviour
     public Limb rightHandCollider;
     public Limb headCollider;
 
+    public AudioClip leftFootStep;
+    public AudioClip rightFootStep;
+
     private Animator animator;
+    private AudioSource footstepAudio;
     private CannibalHealth cannibalHealth;
     private NavMeshAgent navMeshAgent;
     private Transform player;
@@ -35,7 +39,7 @@ public class Mutant : MonoBehaviour
     private AudioSource audioSource;
 
     private string[] hitAnimations = new string[] { "Hit Left", "Hit Right", "Hit Center" };
-    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5", "Attack 8" };
+    private string[] attackAnimations = new string[] { "Attack 1", "Attack 2", "Attack 5" }; // "Attack 8"
     private string[] deathAnimations = new string[] { "Dead 1", "Dead 2", "Dead 3", "Dead 4" };
 
     public AudioClip[] shoutAudioClips;
@@ -80,6 +84,7 @@ public class Mutant : MonoBehaviour
         leftHandCollider = leftHand.GetComponent<Limb>();
         rightHandCollider = rightHand.GetComponent<Limb>();
         headCollider = head.GetComponent<Limb>();
+        footstepAudio = transform.Find("FootStep Audio").GetComponent<AudioSource>();
         movingState = State.WALK;
     }
 
@@ -186,6 +191,18 @@ public class Mutant : MonoBehaviour
         }
     }
 
+    public void PlayLeftFootStep(string s)
+    {
+        footstepAudio.clip = leftFootStep;
+        footstepAudio.Play();
+    }
+
+    public void PlayRightFootStep(string s)
+    {
+        footstepAudio.clip = rightFootStep;
+        footstepAudio.Play();
+    }
+
     public void EnableRightHand(string s)
     {
         rightHandCollider.Enable();
@@ -218,6 +235,7 @@ public class Mutant : MonoBehaviour
 
     public void HitFinished(string s)
     {
+        audioClipTimeTotal = audioClipTime;
         attackTimeTotal = attackTime;
         if (movingState == State.ATTACK) {
             attacking = true;

@@ -12,6 +12,7 @@ public class PlayerHealth : Health
 
     public AudioClip[] audioClips;
     public AudioClip heartbeat;
+    public BounceShake.Params shakeParams;
     public KickShake.Params leftShakeParams;
     public KickShake.Params rightShakeParams;
 
@@ -52,10 +53,11 @@ public class PlayerHealth : Health
         damageAudioSource.volume = b;
         damageAudioSource.Play();
         Vector3 sourcePosition = transform.position;
-        if (isLeft) {
-            CameraShaker.Shake(new KickShake(leftShakeParams, new CameraShake.Displacement(sourcePosition)));
-        } else {
-            CameraShaker.Shake(new KickShake(rightShakeParams, new CameraShake.Displacement(sourcePosition)));
-        }
+        CameraShaker.Shake(new BounceShake(shakeParams, sourcePosition));
+        // if (isLeft) {
+        //     CameraShaker.Shake(new KickShake(leftShakeParams, new CameraShake.Displacement(sourcePosition)));
+        // } else {
+        //     CameraShaker.Shake(new KickShake(rightShakeParams, new CameraShake.Displacement(sourcePosition)));
+        // }
     }
 }

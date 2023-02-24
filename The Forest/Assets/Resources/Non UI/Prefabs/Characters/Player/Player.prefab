@@ -1171,11 +1171,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce992a279e1a14afc9ee359eff33294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: 1
-  b: 0.2
+  a: 0.9
+  b: 0.15
   audioClips:
   - {fileID: 8300000, guid: 90a6079a08ac84ca597defadaf9d7909, type: 3}
   heartbeat: {fileID: 8300000, guid: 1259079515e4e477fae4521799b3a866, type: 3}
+  shakeParams:
+    positionStrength: 0.2
+    rotationStrength: 0.2
+    axesMultiplier:
+      position: {x: 2, y: 2, z: 5}
+      eulerAngles: {x: 1, y: 1, z: 1}
+    freq: 50
+    numBounces: 5
+    randomness: 0.5
+    attenuation:
+      clippingDistance: 10
+      falloffScale: 50
+      falloffDegree: 1
+      axesMultiplier: {x: 1, y: 1, z: 1}
   leftShakeParams:
     strength:
       position: {x: -0.3, y: -2, z: -0.05}
