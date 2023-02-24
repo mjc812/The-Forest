@@ -21,10 +21,7 @@ public abstract class Health : MonoBehaviour
         }
     }
 
-    public void ApplyHealth(float amount)
-    {
-        health += amount;
-    }
+    public abstract void ApplyHealth(float amount);
 
     public void SetHealth(float amount)
     {

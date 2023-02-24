@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179293963}
   - component: {fileID: 179293964}
+  - component: {fileID: 179293965}
   m_Layer: 0
   m_Name: Effects Audio
   m_TagString: Untagged
@@ -222,6 +223,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &179293965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179293962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82aad36b1a1164d37a6caedc6a5ee797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 36e8e9c4b03de47bc8e5a07291964c54, type: 3}
 --- !u!1 &760080631
 GameObject:
   m_ObjectHideFlags: 0
