@@ -21,7 +21,7 @@ public class Enfield : SingleFire
 
     public override Vector3 weaponHolderPosition
     {
-        get => new Vector3(0.25f, -0.4f, 0.5f);
+        get => new Vector3(0.1f, -0.19f, 0.22f);
     }
 
     public override Vector3 weaponHolderRotation
@@ -31,11 +31,11 @@ public class Enfield : SingleFire
 
     public override Vector3 fpCameraAimPosition
     {
-        get => new Vector3(0.23f, -0.1f, 0.1f);
+        get => new Vector3(0.0934f, -0.039f, 0.1f);
     }
 
     public override Vector3 fpCameraAimRotation
     {
-        get => new Vector3(0f, 2.9f, 0f);
+        get => new Vector3(0f, 2.96f, 0f);
     }
 }
