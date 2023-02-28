@@ -9819,7 +9819,7 @@ Transform:
   m_GameObject: {fileID: 2066029447}
   m_LocalRotation: {x: -0.1093782, y: 0.7298955, z: 0.12024179, w: 0.6639511}
   m_LocalPosition: {x: -0.003, y: 0.209, z: 0.913}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4155165020505652}
@@ -9898,7 +9898,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -14964,7 +14964,7 @@ Transform:
   m_GameObject: {fileID: 1866922139816864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4817531661429008}
@@ -15172,20 +15172,6 @@ MonoBehaviour:
       position: {x: 1, y: 1, z: 0}
       eulerAngles: {x: 1, y: 1, z: 1}
     freq: 50
-    numBounces: 5
-    randomness: 0.5
-    attenuation:
-      clippingDistance: 10
-      falloffScale: 50
-      falloffDegree: 1
-      axesMultiplier: {x: 1, y: 1, z: 1}
-  enfieldShakeParams:
-    positionStrength: 0.05
-    rotationStrength: 0.1
-    axesMultiplier:
-      position: {x: 1, y: 1, z: 0}
-      eulerAngles: {x: 0, y: 0, z: 1}
-    freq: 25
     numBounces: 5
     randomness: 0.5
     attenuation:
