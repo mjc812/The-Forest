@@ -1,12 +1,15 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerPickup : MonoBehaviour
 {
     private GameObject UICanvas;
     public GameObject centerText;
+    private TMP_Text TMP_Text;
 
     private void Awake() {
         UICanvas = GameObject.FindWithTag("UICanvas");
+        TMP_Text = centerText.GetComponent<TMP_Text>();
     }
 
     private void Update() {
@@ -24,6 +27,7 @@ public class PlayerPickup : MonoBehaviour
             } else 
             {
                 centerText.SetActive(true);
+                TMP_Text.text = "Press (F) to pickup" + " " + item.Description;
             }
         } else {
             DeactivateText();
