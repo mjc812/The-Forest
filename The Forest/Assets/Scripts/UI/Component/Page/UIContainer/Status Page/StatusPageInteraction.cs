@@ -27,7 +27,9 @@ public class StatusPageInteraction : MonoBehaviour
                 // place translucent icon image on mouse position
             } else if (Input.GetMouseButtonUp(0))
             {
-                SetRecipientSlot();
+                if (donorSlot.isSlotTaken()) {
+                    SetRecipientSlot();
+                }
             }
         }
     }
@@ -54,8 +56,10 @@ public class StatusPageInteraction : MonoBehaviour
             {
                 PerformSwap();
             }
+            donorSlot = null;
+            recipientSlot = null;
             //if IDs match, it should stack
-        } 
+        }
     }
 
     private void PerformDrop()

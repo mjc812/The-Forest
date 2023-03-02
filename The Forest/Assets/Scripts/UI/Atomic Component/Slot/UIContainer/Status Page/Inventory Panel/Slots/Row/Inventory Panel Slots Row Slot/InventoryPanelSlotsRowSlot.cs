@@ -8,8 +8,8 @@ using UnityEngine.EventSystems;
 public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 {
     private bool taken;
-    private Consumable item;
     private int itemCount = 0;
+    private Consumable item;
     private Text slotDisplayAmount;
     private Image slotImage;
     private GameObject itemsContainer;
