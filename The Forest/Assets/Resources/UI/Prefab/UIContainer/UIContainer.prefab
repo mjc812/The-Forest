@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5378311810102937520}
   - component: {fileID: 5378311810102937523}
   m_Layer: 0
-  m_Name: Inventory Panel
+  m_Name: Inventory Display
   m_TagString: InventoryDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -287.99997, y: 287.99997}
+  m_AnchoredPosition: {x: -289, y: 285}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5378311811413475450
