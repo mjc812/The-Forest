@@ -50,6 +50,42 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         }
     }
 
+    public bool AddCount(int count) {
+        if (itemCount + count > item.maxStackSize) {
+            itemCount = item.maxStackSize;
+            SetDescripionAndCount();
+            return false;
+        } else {
+            itemCount += count;
+            SetDescripionAndCount();
+            return true;
+        }
+    }
+
+    public bool SubtractCount(int count) {
+        if (itemCount - count < 0) {
+            itemCount = 0;
+            SetDescripionAndCount();
+            return false;
+        } else {
+            itemCount -= count;
+            SetDescripionAndCount();
+            return true;
+        }
+    }
+
+    public bool SetCount(int count) {
+        if (count > item.maxStackSize) {
+            itemCount = item.maxStackSize;
+            SetDescripionAndCount();
+            return false;
+        } else {
+            itemCount = count;
+            SetDescripionAndCount();
+            return true;
+        }
+    }
+
     private void AddItemGameObject(GameObject itemObject) {
         if (itemGameObject == null) {
             itemGameObject = itemObject;
@@ -61,6 +97,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         taken = false;
         item = null;
         itemCount = 0;
+        itemGameObject.transform.parent = null;
         itemGameObject = null;
         SetDescripionAndCount();
         SetSprite(null);

@@ -55,7 +55,8 @@ public class StatusPageInteraction : MonoBehaviour
             } else if(recipientSlot.GetItem().ID != donorSlot.GetItem().ID)
             {
                 Swap();
-            } else if (recipientSlot.GetItem().ID == donorSlot.GetItem().ID) {
+            } else if (recipientSlot.GetItem().ID == donorSlot.GetItem().ID && recipientSlot != donorSlot) 
+            {
                 Stack();
             }
             donorSlot = null;
@@ -64,11 +65,20 @@ public class StatusPageInteraction : MonoBehaviour
     }
 
     private void Stack() {
-        int donorSlotCount = donorSlot.GetItemCount();
-        int donorItemMax = donorSlot.GetItem().maxStackSize;
+        GameObject recipientGameObject = recipientSlot.GetItemGameObject();
+        GameObject donorGameObject = donorSlot.GetItemGameObject();
 
+        int donorSlotCount = donorSlot.GetItemCount();
         int recipientSlotCount = recipientSlot.GetItemCount();
-        int recipientItemMax = recipientSlot.GetItem().maxStackSize;
+        int itemMax = recipientSlot.GetItem().maxStackSize;
+
+        if (donorSlotCount + recipientSlotCount > itemMax) {
+            donorSlot.SubtractCount(itemMax - recipientSlotCount);
+            recipientSlot.SetCount(itemMax);
+        } else {
+            donorSlot.ClearSlot();
+            recipientSlot.AddCount(donorSlotCount);
+        }
     }
 
     private void Drop()
