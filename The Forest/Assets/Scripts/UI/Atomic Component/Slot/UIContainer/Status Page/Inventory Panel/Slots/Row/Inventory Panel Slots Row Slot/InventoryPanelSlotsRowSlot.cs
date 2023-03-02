@@ -36,7 +36,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
             SetDescripionAndCount();
             SetSprite(consumable);
             return true;
-        } else if (item.ID == consumable.ID)
+        } else if ((item.ID == consumable.ID) && (itemCount < item.maxStackSize))
         {
             itemCount += quantity;
             SetDescripionAndCount();

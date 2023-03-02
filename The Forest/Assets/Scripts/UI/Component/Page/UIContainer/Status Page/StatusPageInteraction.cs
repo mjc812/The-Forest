@@ -48,32 +48,41 @@ public class StatusPageInteraction : MonoBehaviour
             recipientSlot = FindSlot();
             if (donorSlot.isSlotTaken() && recipientSlot == null)
             {
-                PerformDrop();
+                Drop();
             } else if(donorSlot.isSlotTaken() && !recipientSlot.isSlotTaken())
             {
-                PerformMove();
-            } else if(recipientSlot.GetItem().ID != donorSlot.GetItem().ID) //check if both contain items
+                Move();
+            } else if(recipientSlot.GetItem().ID != donorSlot.GetItem().ID)
             {
-                PerformSwap();
+                Swap();
+            } else if (recipientSlot.GetItem().ID == donorSlot.GetItem().ID) {
+                Stack();
             }
             donorSlot = null;
             recipientSlot = null;
-            //if IDs match, it should stack
         }
     }
 
-    private void PerformDrop()
+    private void Stack() {
+        int donorSlotCount = donorSlot.GetItemCount();
+        int donorItemMax = donorSlot.GetItem().maxStackSize;
+
+        int recipientSlotCount = recipientSlot.GetItemCount();
+        int recipientItemMax = recipientSlot.GetItem().maxStackSize;
+    }
+
+    private void Drop()
     {
         donorSlot.GetItem().Drop();
     }
 
-    private void PerformMove()
+    private void Move()
     {
         recipientSlot.AddItem(donorSlot.GetItem(), donorSlot.GetItemCount());
         donorSlot.ClearSlot();
     }
 
-    private void PerformSwap()
+    private void Swap()
     {
         Consumable recipientItem = recipientSlot.GetItem();
         int recipientItemCount = recipientSlot.GetItemCount();
