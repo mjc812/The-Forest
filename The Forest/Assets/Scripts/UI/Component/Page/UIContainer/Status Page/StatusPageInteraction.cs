@@ -27,7 +27,7 @@ public class StatusPageInteraction : MonoBehaviour
                 // place translucent icon image on mouse position
             } else if (Input.GetMouseButtonUp(0))
             {
-                if (donorSlot.isSlotTaken()) {
+                if (donorSlot && donorSlot.isSlotTaken()) {
                     SetRecipientSlot();
                 }
             }
