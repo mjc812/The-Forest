@@ -31,7 +31,7 @@ public class KeyInputHandler : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
-            playerPickup.ItemPickup();
+            //playerPickup.ItemPickup();
         } else if(Input.GetKeyDown(KeyCode.Q))
         {
             weaponHolderController.DropItem();

@@ -19,6 +19,7 @@ TagManager:
   - Inventory
   - Character
   - PostProcessing
+  - CenterText
   layers:
   - Default
   - TransparentFX

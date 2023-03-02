@@ -190,12 +190,12 @@ GameObject:
   - component: {fileID: 186877638032859994}
   - component: {fileID: 8863215099073408568}
   m_Layer: 5
-  m_Name: Pickup Text
-  m_TagString: Untagged
+  m_Name: Center Text
+  m_TagString: CenterText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3899631796840325043
 RectTransform:
   m_ObjectHideFlags: 0
