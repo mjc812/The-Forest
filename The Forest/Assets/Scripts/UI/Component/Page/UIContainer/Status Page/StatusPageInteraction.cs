@@ -78,7 +78,7 @@ public class StatusPageInteraction : MonoBehaviour
 
     private void Move()
     {
-        recipientSlot.AddItem(donorSlot.GetItem(), donorSlot.GetItemCount());
+        recipientSlot.AddItem(donorSlot.GetItemGameObject(), donorSlot.GetItem(), donorSlot.GetItemCount());
         donorSlot.ClearSlot();
     }
 
@@ -87,10 +87,13 @@ public class StatusPageInteraction : MonoBehaviour
         Consumable recipientItem = recipientSlot.GetItem();
         int recipientItemCount = recipientSlot.GetItemCount();
         
+        GameObject recipientGameObject = recipientSlot.GetItemGameObject();
+        GameObject donorGameObject = donorSlot.GetItemGameObject();
+
         recipientSlot.ClearSlot();
-        recipientSlot.AddItem(donorSlot.GetItem(), donorSlot.GetItemCount());
+        recipientSlot.AddItem(donorGameObject, donorSlot.GetItem(), donorSlot.GetItemCount());
         donorSlot.ClearSlot();
-        donorSlot.AddItem(recipientItem, recipientItemCount);
+        donorSlot.AddItem(recipientGameObject, recipientItem, recipientItemCount);
     }
 
     private InventoryPanelSlotsRowSlot FindSlot()

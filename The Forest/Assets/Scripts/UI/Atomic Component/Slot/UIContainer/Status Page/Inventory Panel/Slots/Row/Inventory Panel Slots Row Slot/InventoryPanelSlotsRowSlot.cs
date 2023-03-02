@@ -9,6 +9,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
 {
     private bool taken;
     private int itemCount = 0;
+    private GameObject itemGameObject;
     private Consumable item;
     private Text slotDisplayAmount;
     private Image slotImage;
@@ -26,7 +27,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         taken = false;
     }
 
-    public bool AddItem(Consumable consumable, int quantity)
+    public bool AddItem(GameObject gameObject, Consumable consumable, int quantity)
     {
         if (item == null)
         {
@@ -35,11 +36,13 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
             itemCount = quantity;
             SetDescripionAndCount();
             SetSprite(consumable);
+            AddItemGameObject(gameObject);
             return true;
         } else if ((item.ID == consumable.ID) && (itemCount < item.maxStackSize))
         {
             itemCount += quantity;
             SetDescripionAndCount();
+            AddItemGameObject(gameObject);
             return true;
         } else
         {
@@ -47,10 +50,18 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         }
     }
 
+    private void AddItemGameObject(GameObject itemObject) {
+        if (itemGameObject == null) {
+            itemGameObject = itemObject;
+            itemObject.transform.parent = itemsContainer.transform;
+        }
+    }
+
     public void ClearSlot() {
         taken = false;
         item = null;
         itemCount = 0;
+        itemGameObject = null;
         SetDescripionAndCount();
         SetSprite(null);
     }
@@ -58,6 +69,10 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
     public Consumable GetItem()
     {
         return item;
+    }
+
+    public GameObject GetItemGameObject() {
+        return itemGameObject;
     }
 
     public int GetItemCount()

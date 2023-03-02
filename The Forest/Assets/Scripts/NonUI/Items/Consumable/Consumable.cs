@@ -14,7 +14,7 @@ public abstract class Consumable : MonoBehaviour, Item
     public void PickUp()
     {
         inventory = GameObject.FindWithTag("Inventory").GetComponent<Inventory>();
-        if (inventory.AddItem(this))
+        if (inventory.AddItem(gameObject, this))
         {
             transform.gameObject.SetActive(false);
         }
