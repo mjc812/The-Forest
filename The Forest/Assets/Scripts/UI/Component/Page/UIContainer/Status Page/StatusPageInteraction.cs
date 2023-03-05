@@ -97,13 +97,10 @@ public class StatusPageInteraction : MonoBehaviour
         int donorSlotCount = donorSlot.GetItemCount();
         int recipientSlotCount = recipientSlot.GetItemCount();
         int itemMax = recipientSlot.GetItem().maxStackSize;
-
-        if (donorSlotCount + recipientSlotCount > itemMax) {
-            donorSlot.SubtractCount(itemMax - recipientSlotCount);
-            recipientSlot.SetCount(itemMax);
-        } else {
-            donorSlot.ClearSlot();
-            recipientSlot.AddCount(donorSlotCount);
+        
+        if (recipientSlotCount + 1 <= itemMax) {
+            donorSlot.SubtractCount(1);
+            recipientSlot.AddCount(1);
         }
     }
 

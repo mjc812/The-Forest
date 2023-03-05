@@ -52,16 +52,9 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         }
     }
 
-    public bool AddCount(int count) {
-        if (itemCount + count > item.maxStackSize) {
-            itemCount = item.maxStackSize;
-            SetDescripionAndCount();
-            return false;
-        } else {
-            itemCount += count;
-            SetDescripionAndCount();
-            return true;
-        }
+    public void AddCount(int count) {
+        itemCount += count;
+        SetDescripionAndCount();
     }
 
     public void SubtractCount(int count) {
