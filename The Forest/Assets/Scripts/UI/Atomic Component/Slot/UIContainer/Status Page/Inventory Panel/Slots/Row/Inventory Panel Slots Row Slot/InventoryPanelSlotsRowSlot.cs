@@ -15,6 +15,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
     private Image slotImage;
     private GameObject itemsContainer;
     private GameObject icon;
+    private Sprite sprite;
     private float onPointerDownTime = 0;
 
     private void Awake()
@@ -126,13 +127,17 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         if (consumable)
         {
             icon.SetActive(true);
-            Sprite sprite = consumable.Sprite;
+            sprite = consumable.Sprite;
             slotImage.sprite = sprite;
         } else
         {
             icon.SetActive(false);
             slotImage.sprite = null;
         }
+    }
+
+    public Sprite GetSprite() {
+        return sprite;
     }
 
     private void SetDescripionAndCount()

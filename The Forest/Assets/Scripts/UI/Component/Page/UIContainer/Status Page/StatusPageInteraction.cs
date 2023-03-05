@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class StatusPageInteraction : MonoBehaviour
 {
-    InventoryPanelSlotsRowSlot donorSlot;
-    InventoryPanelSlotsRowSlot recipientSlot;
+    private InventoryPanelSlotsRowSlot donorSlot;
+    private InventoryPanelSlotsRowSlot recipientSlot;
+    public GameObject mouseImageGameObject;
+    private Image mouseImage;
     private StatusPage statusPage;
 
     private float onPointerDownTime = 0;
 
     void Awake()
     {
+        mouseImage = mouseImageGameObject.GetComponent<Image>();
         statusPage = GameObject.FindWithTag("StatusPage").GetComponent<StatusPage>();
+
+        mouseImageGameObject.SetActive(false);
     }
 
     void Update()
@@ -24,7 +29,7 @@ public class StatusPageInteraction : MonoBehaviour
                 SetDonorSlot();
             } else if (Input.GetMouseButton(0))
             {
-                // place translucent icon image on mouse position
+                MoveMouseImage();
             } else if (Input.GetMouseButtonUp(0))
             {
                 if (donorSlot && donorSlot.isSlotTaken()) {
@@ -34,9 +39,29 @@ public class StatusPageInteraction : MonoBehaviour
         }
     }
 
+    private void SetSpriteOnMouseImage() {
+        if (donorSlot && donorSlot.isSlotTaken()) {
+            mouseImageGameObject.SetActive(true);
+            Sprite sprite = donorSlot.GetSprite();
+            mouseImage.sprite = sprite;
+        }
+    }
+
+    private void ClearSpriteOnMouseImage() {
+        mouseImageGameObject.SetActive(false);
+        mouseImage.sprite = null;
+    }
+
+    private void MoveMouseImage() {
+        if (donorSlot && donorSlot.isSlotTaken()) {
+            mouseImage.transform.position = Input.mousePosition;
+        }
+    }
+
     private void SetDonorSlot() {
         onPointerDownTime = Time.time;
         donorSlot = FindSlot();
+        SetSpriteOnMouseImage();
     }
 
     private void SetRecipientSlot() {
@@ -62,6 +87,7 @@ public class StatusPageInteraction : MonoBehaviour
             donorSlot = null;
             recipientSlot = null;
         }
+        ClearSpriteOnMouseImage();
     }
 
     private void Stack() {
