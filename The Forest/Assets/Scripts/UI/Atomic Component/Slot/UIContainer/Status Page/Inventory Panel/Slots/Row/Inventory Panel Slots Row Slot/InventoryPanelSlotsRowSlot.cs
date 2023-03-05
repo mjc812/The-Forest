@@ -141,10 +141,6 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         {
             slotDisplayAmount.text = "";
         }
-
-        // if (itemCount <= 0) {
-        //     ClearSlot();
-        // }
     }
 
     public void SetItemCount(int countToSet)

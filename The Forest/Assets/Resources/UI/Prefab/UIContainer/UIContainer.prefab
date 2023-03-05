@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseImageGameObject: {fileID: 1308988568}
+  itemDropPoint: {fileID: 0}
 --- !u!114 &5378311810951702509
 MonoBehaviour:
   m_ObjectHideFlags: 0

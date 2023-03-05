@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class StatusPageInteraction : MonoBehaviour
 {
+    public GameObject mouseImageGameObject;
+    public GameObject itemDropPoint;
+
     private InventoryPanelSlotsRowSlot donorSlot;
     private InventoryPanelSlotsRowSlot recipientSlot;
-    public GameObject mouseImageGameObject;
     private Image mouseImage;
     private StatusPage statusPage;
+    private Camera mainCamera;
 
     private float onPointerDownTime = 0;
 
@@ -17,6 +20,7 @@ public class StatusPageInteraction : MonoBehaviour
     {
         mouseImage = mouseImageGameObject.GetComponent<Image>();
         statusPage = GameObject.FindWithTag("StatusPage").GetComponent<StatusPage>();
+        mainCamera = Camera.main;
 
         mouseImageGameObject.SetActive(false);
     }
@@ -106,7 +110,12 @@ public class StatusPageInteraction : MonoBehaviour
 
     private void Drop()
     {
-        donorSlot.GetItem().Drop();
+        float random = Random.Range(-0.5f, 0.5f);
+        Vector3 position = new Vector3(itemDropPoint.transform.position.x + random, itemDropPoint.transform.position.y + random, itemDropPoint.transform.position.z + random);
+        GameObject itemGameObject = GameObject.Instantiate(donorSlot.GetItemGameObject(), position, itemDropPoint.transform.rotation);
+        itemGameObject.SetActive(true);
+        itemGameObject.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f); //move unique sizes to items
+        donorSlot.SubtractCount(1);
     }
 
     private void Move()
