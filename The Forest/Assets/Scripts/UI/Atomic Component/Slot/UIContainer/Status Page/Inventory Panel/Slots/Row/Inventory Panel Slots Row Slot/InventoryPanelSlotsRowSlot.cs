@@ -8,16 +8,19 @@ using UnityEngine.EventSystems;
 public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 {
     private bool taken;
+    private int itemCount;
+    private GameObject itemGameObject;
     private Consumable item;
-    private int itemCount = 0;
     private Text slotDisplayAmount;
     private Image slotImage;
     private GameObject itemsContainer;
     private GameObject icon;
+    private Sprite sprite;
     private float onPointerDownTime = 0;
 
     private void Awake()
     {
+        itemCount = 0;
         icon = transform.GetChild(0).gameObject;
         slotDisplayAmount = transform.GetChild(1).GetComponent<Text>();
         itemsContainer = transform.GetChild(2).gameObject;
@@ -26,7 +29,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         taken = false;
     }
 
-    public bool AddItem(Consumable consumable, int quantity)
+    public bool AddItem(GameObject gameObject, Consumable consumable, int quantity)
     {
         if (item == null)
         {
@@ -35,11 +38,13 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
             itemCount = quantity;
             SetDescripionAndCount();
             SetSprite(consumable);
+            AddItemGameObject(gameObject);
             return true;
-        } else if (item.ID == consumable.ID)
+        } else if ((item.ID == consumable.ID) && (itemCount < item.maxStackSize))
         {
             itemCount += quantity;
             SetDescripionAndCount();
+            AddItemGameObject(gameObject);
             return true;
         } else
         {
@@ -47,10 +52,45 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         }
     }
 
+    public void AddCount(int count) {
+        itemCount += count;
+        SetDescripionAndCount();
+    }
+
+    public void SubtractCount(int count) {
+        itemCount = itemCount - count;
+        if (itemCount <= 0) {
+            ClearSlot();
+        } else {
+            SetDescripionAndCount();
+        }
+    }
+
+    public bool SetCount(int count) {
+        if (count > item.maxStackSize) {
+            itemCount = item.maxStackSize;
+            SetDescripionAndCount();
+            return false;
+        } else {
+            itemCount = count;
+            SetDescripionAndCount();
+            return true;
+        }
+    }
+
+    private void AddItemGameObject(GameObject itemObject) {
+        if (itemGameObject == null) {
+            itemGameObject = itemObject;
+            itemObject.transform.parent = itemsContainer.transform;
+        }
+    }
+
     public void ClearSlot() {
         taken = false;
         item = null;
         itemCount = 0;
+        itemGameObject.transform.parent = null;
+        itemGameObject = null;
         SetDescripionAndCount();
         SetSprite(null);
     }
@@ -58,6 +98,10 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
     public Consumable GetItem()
     {
         return item;
+    }
+
+    public GameObject GetItemGameObject() {
+        return itemGameObject;
     }
 
     public int GetItemCount()
@@ -74,13 +118,17 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         if (consumable)
         {
             icon.SetActive(true);
-            Sprite sprite = consumable.Sprite;
+            sprite = consumable.Sprite;
             slotImage.sprite = sprite;
         } else
         {
             icon.SetActive(false);
             slotImage.sprite = null;
         }
+    }
+
+    public Sprite GetSprite() {
+        return sprite;
     }
 
     private void SetDescripionAndCount()

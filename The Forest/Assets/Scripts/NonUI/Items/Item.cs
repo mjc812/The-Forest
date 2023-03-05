@@ -6,6 +6,8 @@ public interface Item
     string Description { get; }
     Sprite Sprite { get; }
 
+    int maxStackSize { get; }
+
     bool Use();
     void PickUp();
     void Drop();

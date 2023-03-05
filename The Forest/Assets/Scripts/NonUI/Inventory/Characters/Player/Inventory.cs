@@ -17,12 +17,12 @@ public class Inventory : MonoBehaviour
         itemIndex = new Dictionary<int, List<int>>();
     }
 
-    public bool AddItem(Consumable consumable)
+    public bool AddItem(GameObject consumableGameObject, Consumable consumable)
     {
         for (int i = 0; i < inventorySize; i++)
         {
             InventoryPanelSlotsRowSlot inventoryPanelSlotsRowSlot = inventoryPanelSlotsRowSlots[i];
-            if (inventoryPanelSlotsRowSlot.AddItem(consumable, 1))
+            if (inventoryPanelSlotsRowSlot.AddItem(consumableGameObject, consumable, 1))
             {
                 return true;
             }

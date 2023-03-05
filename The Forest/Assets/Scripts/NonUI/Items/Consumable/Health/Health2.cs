@@ -18,6 +18,11 @@ public class Health2 : Consumable
         get => 1;
     }
 
+    public override int maxStackSize
+    {
+        get => 5;
+    }
+
     public override string Description
     {
         get => "Health Lv.2";

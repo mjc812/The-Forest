@@ -3,6 +3,11 @@ using CameraShake;
 
 public abstract class Weapon : MonoBehaviour, Item
 {
+    public int maxStackSize
+    {
+        get => 1;
+    }
+
     public GameObject[] fleshHitEffects;
     
     public abstract int ID { get; }
