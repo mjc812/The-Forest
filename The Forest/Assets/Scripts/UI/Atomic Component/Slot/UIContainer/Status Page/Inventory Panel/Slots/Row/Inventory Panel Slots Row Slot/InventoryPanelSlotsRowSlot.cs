@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 {
     private bool taken;
-    private int itemCount = 0;
+    private int itemCount;
     private GameObject itemGameObject;
     private Consumable item;
     private Text slotDisplayAmount;
@@ -20,6 +20,7 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
 
     private void Awake()
     {
+        itemCount = 0;
         icon = transform.GetChild(0).gameObject;
         slotDisplayAmount = transform.GetChild(1).GetComponent<Text>();
         itemsContainer = transform.GetChild(2).gameObject;
@@ -63,15 +64,12 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         }
     }
 
-    public bool SubtractCount(int count) {
-        if (itemCount - count < 0) {
-            itemCount = 0;
-            SetDescripionAndCount();
-            return false;
+    public void SubtractCount(int count) {
+        itemCount = itemCount - count;
+        if (itemCount <= 0) {
+            ClearSlot();
         } else {
-            itemCount -= count;
             SetDescripionAndCount();
-            return true;
         }
     }
 
@@ -150,6 +148,10 @@ public class InventoryPanelSlotsRowSlot : MonoBehaviour, IPointerDownHandler, IP
         {
             slotDisplayAmount.text = "";
         }
+
+        // if (itemCount <= 0) {
+        //     ClearSlot();
+        // }
     }
 
     public void SetItemCount(int countToSet)

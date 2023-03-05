@@ -114,8 +114,10 @@ public class StatusPageInteraction : MonoBehaviour
 
     private void Move()
     {
-        recipientSlot.AddItem(donorSlot.GetItemGameObject(), donorSlot.GetItem(), donorSlot.GetItemCount());
-        donorSlot.ClearSlot();
+        GameObject itemGameObject = GameObject.Instantiate(donorSlot.GetItemGameObject());
+        recipientSlot.AddItem(itemGameObject, donorSlot.GetItem(), 1);
+        itemGameObject.SetActive(false);
+        donorSlot.SubtractCount(1);
     }
 
     private void Swap()
